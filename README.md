@@ -61,15 +61,13 @@ elmo-hikes/
 ---
 
 ## Contributors
-<<<<<<< HEAD
+- **Ranvir Kahlon** - BCIT CST Student with a passion for computing and problem solving.
 - **Your Name** - BCIT CST Student with a passion for outdoor adventures and user-friendly applications. Fun fact: Loves solving Rubik's Cubes in under a minute.
 - **Teammate Name** - BCIT CST Student, Frontend enthusiast with a knack for creative design. Fun fact: Has a collection of over 50 houseplants.
 - **Arshaan** - BCIT CST Student with a passion for programming, story building and woodworking. Fun fact: I am currently building a world along with a few other writers, which is intended to be the background for a game in the future
-=======
 
 - **Tejjvir Singh** - BCIT CST Student with a passion for programming and learning more about technology. Fun fact: Loves playing badminton and listening to music.
 - **Phone** - BCIT CST Student with a passion for music production. Fun fact: Primarly loves programming applications.
->>>>>>> develop
 
 ---
 

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Room Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="/src/components/site-navbar.js"></script> 
+    <script type="module" src="/src/components/site-footer.js"></script>
+</head>
+<body>
+    <site-navbar></site-navbar>
+    <div id="home-screen" class="container py-5 text-center">
+        <h1 class="fw-bold">Create a room below!</h1>
+        <button id="create-room-button" class="btn btn-primary btn-lg mt-4">Create Room</button>
+    </div>
+
+    <div id="lobby-screen" class="py-5 d-none">
+        <div class="container-fluid py-5 my-5 text-center">
+            <h1 id="lobby-title">Lobby</h1>
+            <div id="room-code"></div>
+            <button id="copy-code-button" class="btn btn-outline-primary m-2">Copy Code</button>
+            <button id="gen-quiz-button" class="btn btn-primary m-2">Generate Quiz</button>
+
+            <div id="player-list-container">
+                <p>Players in the room:</p>
+                <ul id="player-list" class="list-unstyled fs-5">
+                <li>You</li>
+                </ul>
+            </div>
+
+            <button id="leave-room-button" class="btn btn-danger">Leave Room</button>
+        </div>
+    </div>
+
+    <site-footer></site-footer>
+
+    <script type="module" src="/src/app.js"></script>
+    <script type="module" src="/src/rooms.js"></script>
+    </body>
+</html>

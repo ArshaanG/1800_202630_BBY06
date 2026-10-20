@@ -1,60 +1,61 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <title>Quiz-Race</title>
-    <meta name="comp1800 template" content="My 1800 App">
+    <meta name="comp1800 template" content="My 1800 App" />
 
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Other libraries go here -->
+    <script type="module" src="/src/components/site-navbar.js"></script>
+    <!-- <script type="module" src="/src/components/site-navbar 1.js"></script> -->
+    <script type="module" src="/src/main.js"></script>
+  </head>
 
-</head>
+  <body>
+    <!-- Top navigation bar -->
+    <site-navbar></site-navbar>
 
-<body>
-<nav class="navbar fixed-top navbar-dark" style="background-color: #040427;">
-  <div class="container-fluid">
-  <a class="navbar-brand text-white" href="#">
-  <img src="./images/quizrace.jpeg" alt="Quiz-Race" width="100">
-Quiz-Race
-  </a>
-  </div>
-</nav>
-<nav class="navbar fixed-bottom navbar-dark" style="background-color: #040427;">
-        <div class="container-fluid justify-content-around">
-            <a class="nav-link text-center text-white active" aria-current="page" href="#">
-                <i class="bi bi-house d-block fs-5"></i><small>Home</small>
-            </a>
-    
-            <a class="nav-link text-center text-white" href="#">
-                <i class="bi bi-people d-block fs-5"></i><small>Rooms</small>
-            </a>
-    
-             <a class="nav-link text-center text-white" href="#">
-                    <i class="bi bi-trophy d-block fs-5"></i><small>Leaderboard</small>
-                </a>
+    <div class="container">
+      <div class="px-4 py-5 my-5 text-center">
+        <img
+          class="d-block mx-auto mb-4"
+          src="/images/main page.jpg"
+          alt=""
+          width="300"
+          height="200"
+        />
+        <h1 class="display-5 fw-bold">
+          Welcome to Quiz-Race, <span id="name-goes-here">my friend!</span>
+        </h1>
+        <div class="col-lg-6 mx-auto">
+          <p class="lead mb-4">
+            Join a community of learners looking for new places to explore.
+          </p>
+          <h2>The Quiz Era</h2>
+          <div class="d-grid justify-content-sm-center">
+            <!-- Make this button clickable, using onclick event listener -->
+            <button
+              onclick="window.location.href = 'login.html'"
+              type="button"
+              class="btn btn-info btn-lg"
+            >
+              Login/Signup
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-                <a class="nav-link text-center text-white" href="#">
-                    <i class="bi bi-person d-block fs-5"></i><small>Profile</small>
-                </a>
+    <!-- Bottom navigation footer -->
+    <site-footer></site-footer>
 
-                <a class="nav-link text-center text-white" href="#">
-                    <i  class="bi bi-list d-block fs-5"></i><small>Menu</small>
-                </a>
-
-            </div>
-    </nav>
-
-
-    <!---------------------------------------------->
-    <!-- Your own JavaScript functions go here    -->
-    <!---------------------------------------------->
+    <!-- JavaScript files -->
 
     <!-- Link to scripts of your own -->
-    <script type="module" src="./src/main.js"></script>
+    <script type="module" src="/src/app.js"></script>
 
-</body>
-
+  </body>
 </html>

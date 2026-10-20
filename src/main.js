@@ -17,5 +17,4 @@ function showName() {
         }
     });
 }
-
-showName();
+// document.addEventListener('DOMContentLoaded', sayHello);

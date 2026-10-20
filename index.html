@@ -1,44 +1,56 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <title>Quiz-Race</title>
-    <meta name="comp1800 template" content="My 1800 App">
+    <meta name="comp1800 template" content="My 1800 App" />
 
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Other libraries go here -->
+    <script type="module" src="/src/components/site-navbar.js"></script>
+    <!-- <script type="module" src="/src/components/site-navbar 1.js"></script> -->
+    <script type="module" src="/src/main.js"></script>
+  </head>
 
-</head>
+  <body>
+    <!-- Top navigation bar -->
+    <site-navbar></site-navbar>
 
-<body>
-<nav class="navbar fixed-top navbar-dark" style="background-color: #040427;">
-  <div class="container-fluid">
-  <a class="navbar-brand text-white" href="#">
-  <img src="./images/quizrace.jpeg" alt="Quiz-Race" width="100">
-Quiz-Race
-  </a>
-  </div>
-</nav>
-<nav class="navbar fixed-bottom navbar-dark" style="background-color: #040427;">
-        <div class="container-fluid justify-content-around">
-            <a class="nav-link text-center text-white active" aria-current="page" href="#">
-                <i class="bi bi-house d-block fs-5"></i><small>Home</small>
-            </a>
-    
-            <a class="nav-link text-center text-white" href="#">
-                <i class="bi bi-people d-block fs-5"></i><small>Rooms</small>
-            </a>
-    
-             <a class="nav-link text-center text-white" href="#">
-                    <i class="bi bi-trophy d-block fs-5"></i><small>Leaderboard</small>
-                </a>
+    <div class="container">
+      <div class="px-4 py-5 my-5 text-center">
+        <img
+          class="d-block mx-auto mb-4"
+          src="/images/main page.jpg"
+          alt=""
+          width="300"
+          height="200"
+        />
+        <h1 class="display-5 fw-bold">
+          Welcome to Quiz-Race, <span id="name-goes-here">my friend!</span>
+        </h1>
+        <div class="col-lg-6 mx-auto">
+          <p class="lead mb-4">
+            Join a community of learners looking for new places to explore.
+          </p>
+          <h2>The Quiz Era</h2>
+          <div class="d-grid justify-content-sm-center">
+            <!-- Make this button clickable, using onclick event listener -->
+            <button
+              onclick="window.location.href = 'login.html'"
+              type="button"
+              class="btn btn-info btn-lg"
+            >
+              Login/Signup
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-                <a class="nav-link text-center text-white" href="#">
-                    <i class="bi bi-person d-block fs-5"></i><small>Profile</small>
-                </a>
+    <!-- Bottom navigation footer -->
+    <site-footer></site-footer>
 
                 <a class="nav-link text-center text-white" href="#">
                     <i  class="bi bi-list d-block fs-5"></i><small>Menu</small>
@@ -47,39 +59,12 @@ Quiz-Race
             </div>
     </nav>
 
-    <div id="home-screen" class="p-5 ">
-  <div class="container-fluid py-5 my-5 text-center">
-    <h1 class="display-5 fw-bold">Welcome to Quiz-Race!</h1>
-    <p class="col-md-8 fs-4 mx-auto text-center">
-      Let's have some fun and test your knowledge!
-    </p>
-    <button id="create-room-button" class="btn btn-primary btn-lg">Create Room</button>
-  </div>
-</div>
-
-<div id="lobby-screen" class="p-5 d-none">
-  <div class="container-fluid py-5 my-5 text-center">
-    <h1 class="display-5 fw-bold">Lobby</h1>
-    <p class="fs-4">Room code:</p>
-    <div id="room-code"></div>
-    <button id="copy-code-button" class="btn btn-outline-primary m-2">Copy Code</button>
-
-    <p class="fs-4">Players in the room:</p>
-    <ul id="player-list" class="list-unstyled fs-5">
-      <li>You</li>
-    </ul>
-
-    <button id="leave-room-button" class="btn btn-danger">Leave Room</button>
-  </div>
-</div>
-
     <!---------------------------------------------->
     <!-- Your own JavaScript functions go here    -->
     <!---------------------------------------------->
 
     <!-- Link to scripts of your own -->
-    <script type="module" src="./src/main.js"></script>
+    <script type="module" src="/src/app.js"></script>
 
-</body>
-
+  </body>
 </html>

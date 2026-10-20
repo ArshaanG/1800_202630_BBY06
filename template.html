@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>My BCIT Project</title>
+    <meta name="comp1800 template" content="My 1800 App">
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Web Components for shared navbar and footer layout -->
+     <script type="module" src="/src/components/site-navbar.js"></script> 
+    <script type="module" src="/src/components/site-footer.js"></script>
+</head>
+
+<body>
+    <!------------------------------>
+    <!-- Your HTML Layout go here -->
+    <!------------------------------>
+
+    <!-- our own navbar goes here -->
+    <site-navbar></site-navbar>
+    
+    <!-- Main content goes here -->
+    <main class="container py-4" style="max-width: 720px; padding-bottom: 300px !important;">
+
+  <div class="ratio ratio-16x9 mb-4">
+    <div id="raceViewport"
+         class="bg-dark text-white rounded-4 overflow-hidden
+                d-flex flex-column justify-content-center
+                align-items-center text-center p-4">
+      <span class="display-1" aria-hidden="true"></span>
+      <p class="fs-4 mb-1">Race viewport</p>
+      <p class="text-white-50 mb-0">Animation placeholder</p>
+    </div>
+  </div>
+    <section aria-labelledby="questionText">
+    <p id="questionProgress" class="text-body-secondary mb-2">
+      Question 1 of 10
+    </p>
+
+    <h1 id="questionText" class="h3 mb-4">
+      Your question goes here.
+    </h1>
+
+    <fieldset id="answerArea">
+      <legend class="fs-6">Choose one answer:</legend>
+
+      <div class="row g-3">
+        <div class="col-12 col-sm-6">
+          <input type="radio" class="btn-check"
+                 name="answer" id="answerA" value="A">
+          <label class="btn btn-outline-primary w-100 p-3 text-start"
+                 for="answerA">
+            <strong>A.</strong>
+            <span id="answerTextA">First answer</span>
+          </label>
+        </div>
+
+        <div class="col-12 col-sm-6">
+          <input type="radio" class="btn-check"
+                 name="answer" id="answerB" value="B">
+          <label class="btn btn-outline-primary w-100 p-3 text-start"
+                 for="answerB">
+            <strong>B.</strong>
+            <span id="answerTextB">Second answer</span>
+          </label>
+        </div>
+
+        <div class="col-12 col-sm-6">
+          <input type="radio" class="btn-check"
+                 name="answer" id="answerC" value="C">
+          <label class="btn btn-outline-primary w-100 p-3 text-start"
+                 for="answerC">
+            <strong>C.</strong>
+            <span id="answerTextC">Third answer</span>
+          </label>
+        </div>
+
+        <div class="col-12 col-sm-6">
+          <input type="radio" class="btn-check"
+                 name="answer" id="answerD" value="D">
+          <label class="btn btn-outline-primary w-100 p-3 text-start"
+                 for="answerD">
+            <strong>D.</strong>
+            <span id="answerTextD">Fourth answer</span>
+          </label>
+        </div>
+      </div>
+    </fieldset>
+  </section>
+
+    <p id="answerFeedback" class="mt-3 mb-0" role="status"></p>
+
+  <div class="text-center mt-4">
+    <button id="nextButton" type="button"
+            class="btn btn-primary btn-lg px-5 py-3 fw-bold">
+      Next
+    </button>
+  </div>
+
+</main>
+
+    <!-- our own footer goes here -->
+    <site-footer></site-footer>
+    
+    <!---------------------------------------------->
+    <!-- Your own JavaScript scripts go here      -->
+    <!---------------------------------------------->
+
+    <script type="module" src="/src/app.js"></script>
+<script type="module" src="/src/main.js"></script>
+</body>
+
+</html>

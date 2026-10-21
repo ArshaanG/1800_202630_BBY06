@@ -2,115 +2,148 @@
 <html lang="en">
 
 <head>
-    <title>My BCIT Project</title>
-    <meta name="comp1800 template" content="My 1800 App">
+  <title>My BCIT Project</title>
+  <meta name="comp1800 template" content="My 1800 App">
 
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Web Components for shared navbar and footer layout -->
-     <script type="module" src="/src/components/site-navbar.js"></script> 
-    <script type="module" src="/src/components/site-footer.js"></script>
+  <!-- Web Components for shared navbar and footer layout -->
+  <script type="module" src="/src/components/site-navbar.js"></script>
+  <script type="module" src="/src/components/site-footer.js"></script>
 </head>
 
 <body>
-    <!------------------------------>
-    <!-- Your HTML Layout go here -->
-    <!------------------------------>
+  <!------------------------------>
+  <!-- Your HTML Layout go here -->
+  <!------------------------------>
 
-    <!-- our own navbar goes here -->
-    <site-navbar></site-navbar>
-    
-    <!-- Main content goes here -->
-    <main class="container py-4" style="max-width: 720px; padding-bottom: 300px !important;">
+  <!-- our own navbar goes here -->
+  <site-navbar></site-navbar>
 
-  <div class="ratio ratio-16x9 mb-4">
-    <div id="raceViewport"
-         class="bg-dark text-white rounded-4 overflow-hidden
+  <!-- Main content goes here -->
+  <main class="container pt-4" style="max-width: 720px; padding-bottom: 300px;">
+
+    <div class="ratio ratio-16x9 mb-4">
+      <div class="bg-dark text-white rounded-4
                 d-flex flex-column justify-content-center
-                align-items-center text-center p-4">
-      <span class="display-1" aria-hidden="true"></span>
-      <p class="fs-4 mb-1">Race viewport</p>
-      <p class="text-white-50 mb-0">Animation placeholder</p>
+                text-center p-4">
+        <p class="fs-4 mb-1">Race viewport</p>
+        <p class="text-white-50 mb-0">Animation placeholder</p>
+      </div>
     </div>
-  </div>
-    <section aria-labelledby="questionText">
-    <p id="questionProgress" class="text-body-secondary mb-2">
-      Question 1 of 10
-    </p>
 
-    <h1 id="questionText" class="h3 mb-4">
-      Your question goes here.
-    </h1>
+    <p class="text-body-secondary mb-2">Question 1 of 10</p>
 
-    <fieldset id="answerArea">
+    <h1 class="h3 mb-4">The question goes here.</h1>
+
+    <!-- Debug controls: remove when real functionality is added -->
+    <fieldset class="border rounded p-3 mb-4">
+      <legend class="float-none w-auto fs-6 px-2">Debug</legend>
+
+      <label>
+        <input type="radio" name="quizType" checked
+          onclick="multipleAnswers.hidden=false; writtenAnswers.hidden=true; trueFalseAnswers.hidden=true;">
+        ABCD
+      </label>
+
+      <label>
+        <input type="radio" name="quizType"
+          onclick="multipleAnswers.hidden=true; writtenAnswers.hidden=false; trueFalseAnswers.hidden=true;">
+        Written
+      </label>
+
+      <label>
+        <input type="radio" name="quizType"
+          onclick="multipleAnswers.hidden=true; writtenAnswers.hidden=true; trueFalseAnswers.hidden=false;">
+        True / False
+      </label>
+    </fieldset>
+
+    <!-- Multiple choice -->
+    <fieldset id="multipleAnswers">
       <legend class="fs-6">Choose one answer:</legend>
 
       <div class="row g-3">
         <div class="col-12 col-sm-6">
-          <input type="radio" class="btn-check"
-                 name="answer" id="answerA" value="A">
-          <label class="btn btn-outline-primary w-100 p-3 text-start"
-                 for="answerA">
-            <strong>A.</strong>
-            <span id="answerTextA">First answer</span>
+          <input type="radio" class="btn-check" name="multipleAnswer" id="answerA">
+          <label class="btn btn-outline-primary w-100 p-3 text-start" for="answerA">
+            <strong>A.</strong> First answer
           </label>
         </div>
 
         <div class="col-12 col-sm-6">
-          <input type="radio" class="btn-check"
-                 name="answer" id="answerB" value="B">
-          <label class="btn btn-outline-primary w-100 p-3 text-start"
-                 for="answerB">
-            <strong>B.</strong>
-            <span id="answerTextB">Second answer</span>
+          <input type="radio" class="btn-check" name="multipleAnswer" id="answerB">
+          <label class="btn btn-outline-primary w-100 p-3 text-start" for="answerB">
+            <strong>B.</strong> Second answer
           </label>
         </div>
 
         <div class="col-12 col-sm-6">
-          <input type="radio" class="btn-check"
-                 name="answer" id="answerC" value="C">
-          <label class="btn btn-outline-primary w-100 p-3 text-start"
-                 for="answerC">
-            <strong>C.</strong>
-            <span id="answerTextC">Third answer</span>
+          <input type="radio" class="btn-check" name="multipleAnswer" id="answerC">
+          <label class="btn btn-outline-primary w-100 p-3 text-start" for="answerC">
+            <strong>C.</strong> Third answer
           </label>
         </div>
 
         <div class="col-12 col-sm-6">
-          <input type="radio" class="btn-check"
-                 name="answer" id="answerD" value="D">
-          <label class="btn btn-outline-primary w-100 p-3 text-start"
-                 for="answerD">
-            <strong>D.</strong>
-            <span id="answerTextD">Fourth answer</span>
+          <input type="radio" class="btn-check" name="multipleAnswer" id="answerD">
+          <label class="btn btn-outline-primary w-100 p-3 text-start" for="answerD">
+            <strong>D.</strong> Fourth answer
           </label>
         </div>
       </div>
     </fieldset>
-  </section>
 
-    <p id="answerFeedback" class="mt-3 mb-0" role="status"></p>
+    <!-- Written answer -->
+    <fieldset id="writtenAnswers" hidden>
+      <legend class="fs-6">Write your answer:</legend>
 
-  <div class="text-center mt-4">
-    <button id="nextButton" type="button"
-            class="btn btn-primary btn-lg px-5 py-3 fw-bold">
-      Next
-    </button>
-  </div>
+      <label class="d-block">
+        Your answer
+        <input type="text" class="form-control form-control-lg mt-2" placeholder="Type your answer here">
+      </label>
+    </fieldset>
 
-</main>
+    <!-- True / False -->
+    <fieldset id="trueFalseAnswers" hidden>
+      <legend class="fs-6">Is this statement true or false?</legend>
 
-    <!-- our own footer goes here -->
-    <site-footer></site-footer>
-    
-    <!---------------------------------------------->
-    <!-- Your own JavaScript scripts go here      -->
-    <!---------------------------------------------->
+      <div class="row g-3">
+        <div class="col-6">
+          <input type="radio" class="btn-check" name="trueFalseAnswer" id="answerTrue">
+          <label class="btn btn-outline-primary btn-lg w-100 py-3" for="answerTrue">
+            True
+          </label>
+        </div>
 
-    <script type="module" src="/src/app.js"></script>
-<script type="module" src="/src/main.js"></script>
+        <div class="col-6">
+          <input type="radio" class="btn-check" name="trueFalseAnswer" id="answerFalse">
+          <label class="btn btn-outline-primary btn-lg w-100 py-3" for="answerFalse">
+            False
+          </label>
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="text-center mt-4">
+      <button type="button" class="btn btn-primary btn-lg px-5 py-3 fw-bold">
+        Next
+      </button>
+    </div>
+
+  </main>
+
+  <!-- our own footer goes here -->
+  <site-footer></site-footer>
+
+  <!---------------------------------------------->
+  <!-- Your own JavaScript scripts go here      -->
+  <!---------------------------------------------->
+
+  <script type="module" src="/src/app.js"></script>
+  <script type="module" src="/src/main.js"></script>
 </body>
 
 </html>

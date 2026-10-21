@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>My BCIT Project</title>
+  <meta name="comp1800 template" content="My 1800 App">
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Web Components for shared navbar and footer layout -->
+  <script type="module" src="/src/components/site-navbar.js"></script>
+  <script type="module" src="/src/components/site-footer.js"></script>
+</head>
+
+<body>
+  <!------------------------------>
+  <!-- Your HTML Layout go here -->
+  <!------------------------------>
+
+  <!-- our own navbar goes here -->
+  <site-navbar></site-navbar>
+
+  <!-- Main content goes here -->
+
+  <!-- placeholder content. We will use JS to modify strings-->
+  <main class="container pt-4" style="max-width: 720px; padding-bottom: 300px;">
+
+    <h1 class="text-center mb-2">Final Results</h1>
+
+    <p class="text-center text-body-secondary mb-4">
+      Player One wins the race!
+    </p>
+
+    <ol class="list-group list-group-numbered">
+
+      <li class="list-group-item list-group-item-warning
+               d-flex align-items-center gap-3 py-3">
+        <div class="flex-grow-1">
+          <strong>Player One</strong>
+          <span class="badge text-bg-dark ms-2">Winner</span>
+        </div>
+        <span class="badge text-bg-primary rounded-pill">
+          1,000 pts
+        </span>
+      </li>
+
+      <li class="list-group-item
+               d-flex align-items-center gap-3 py-3">
+        <div class="flex-grow-1">
+          <strong>Player Two</strong>
+        </div>
+        <span class="badge text-bg-primary rounded-pill">
+          800 pts
+        </span>
+      </li>
+
+      <li class="list-group-item
+               d-flex align-items-center gap-3 py-3">
+        <div class="flex-grow-1">
+          <strong>Player Three</strong>
+        </div>
+        <span class="badge text-bg-primary rounded-pill">
+          600 pts
+        </span>
+      </li>
+
+    </ol>
+
+    <div class="text-center mt-4">
+      <button type="button" class="btn btn-primary btn-lg px-5 py-3 fw-bold">
+        Next
+      </button>
+    </div>
+
+  </main>
+
+
+  <!-- our own footer goes here -->
+  <site-footer></site-footer>
+
+  <!---------------------------------------------->
+  <!-- Your own JavaScript scripts go here      -->
+  <!---------------------------------------------->
+
+  <script type="module" src="/src/app.js"></script>
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>

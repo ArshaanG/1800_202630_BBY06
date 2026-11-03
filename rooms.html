@@ -10,8 +10,9 @@
 <body>
     <site-navbar></site-navbar>
     <div id="home-screen" class="container py-5 text-center">
-        <h1 class="fw-bold">Create a room below!</h1>
+        <h1 class="fw-bold">Create or join a room below!</h1>
         <button id="create-room-button" class="btn btn-primary btn-lg mt-4">Create Room</button>
+        <button id="join-room-button" class="btn btn-outline-primary btn-lg mt-4">Join Room</button>
     </div>
 
     <div id="lobby-screen" class="py-5 d-none">
@@ -29,6 +30,16 @@
             </div>
 
             <button id="leave-room-button" class="btn btn-danger">Leave Room</button>
+        </div>
+    </div>
+
+    <div id="join-room-screen" class="py-5 d-none">
+        <div class="container-fluid py-5 my-5 text-center">
+            <h1 id="join-room-title">Join a Room</h1>
+            <p>Enter a 6-character room code to join</p>
+            <p id="room-code-instructions" style="font-size: 18px;">Your code must contain only <u>uppercase letters</u> and <u>numbers.</u></p>
+            <input type="text" id="room-code-input" class="form-control mb-3" maxlength="6">
+            <button id="join-room-submit" class="btn btn-primary">Submit</button>
         </div>
     </div>
 

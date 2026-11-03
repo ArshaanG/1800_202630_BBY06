@@ -7,7 +7,7 @@
 // -------------------------------------------------------------
 
 // Import the initialized Firebase Authentication object
-import { auth } from "/src/firebaseConfig.js";
+import { auth, db } from "./firebaseConfig.js";
 
 // Import specific functions from the Firebase Auth SDK
 import {
@@ -18,6 +18,7 @@ import {
   signOut,
 } from "firebase/auth";
 
+import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 // -------------------------------------------------------------
 // loginUser(email, password)
 // -------------------------------------------------------------
@@ -51,9 +52,39 @@ export async function loginUser(email, password) {
 //   const user = await signupUser("Alice", "alice@email.com", "secret");
 // -------------------------------------------------------------
 export async function signupUser(name, email, password) {
-  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-  await updateProfile(userCredential.user, { displayName: name });
-  return userCredential.user;
+  try {
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password,
+    );
+
+    const user = userCredential.user;
+
+    await updateProfile(user, {
+      displayName: name,
+    });
+
+    await setDoc(doc(db, "users", user.uid), {
+      uid: user.uid,
+      displayName: name,
+      username: "",
+      email: user.email,
+      phone: "",
+      photoURL: "",
+      bio: "",
+      totalScore: 0,
+      quizzesCompleted: 0,
+      createdAt: serverTimestamp(),
+    });
+
+    console.log("User successfully saved to Firestore!");
+
+    return user;
+  } catch (error) {
+    console.error("Signup or Firestore error:", error);
+    throw error;
+  }
 }
 
 // -------------------------------------------------------------
@@ -130,4 +161,3 @@ export function authErrorMessage(error) {
 
   return map[code] || "Something went wrong. Please try again.";
 }
-

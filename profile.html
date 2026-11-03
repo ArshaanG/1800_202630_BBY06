@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>My BCIT Project</title>
+    <meta name="comp1800 template" content="My 1800 App" />
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Web Components for shared navbar and footer layout -->
+    <script type="module" src="/src/components/site-navbar.js"></script>
+    <script type="module" src="/src/components/site-footer.js"></script>
+    <link rel="stylesheet" href="profile.css">
+  </head>
+
+  <body>
+    <!------------------------------>
+    <!-- Your HTML Layout go here -->
+    <!------------------------------>
+
+    <!-- our own navbar goes here -->
+    <site-navbar></site-navbar>
+
+    <main class="profile-container">
+      <div class="page-heading">
+        <h1>My Profile</h1>
+        <p>Manage your personal information and account settings.</p>
+      </div>
+      <section class="profile-card">
+        <!-- Profile Picture -->
+        <div class="profile-header">
+          <div class="profile-picture-container">
+            <img
+              id="profileImage"
+              src="/Public/images/default-avatar.jpg"
+              alt="Profile Picture"
+            />
+            <label for="imageUpload" class="camera-button">
+              <i class="bi bi-camera-fill"></i>
+            </label>
+            <input type="file" id="imageUpload" accept="image/*" hidden />
+          </div>
+          <h2 id="displayName">Your Name</h2>
+          <p id="displayEmail">your@email.com</p>
+          <div class="picture-actions">
+            <label for="imageUpload" class="upload-button">
+              Change Photo
+            </label>
+            <button type="button" id="removePhoto" class="remove-button">
+              Remove
+            </button>
+          </div>
+        </div>
+        <hr />
+        <!-- Personal Information -->
+        <div class="section-heading">
+          <h3>Personal Information</h3>
+          <p>Update your account details.</p>
+        </div>
+        <form id="profileForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="fullName">Full Name</label>
+              <input
+                type="text"
+                id="fullName"
+                placeholder="Enter your full name"
+                required
+                disabled
+              />
+            </div>
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input
+                type="text"
+                id="username"
+                placeholder="Enter your username"
+                disabled
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                disabled
+              />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input
+                type="tel"
+                id="phone"
+                placeholder="Enter your phone number"
+                disabled
+              />
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="button" id="editButton" class="edit-button">
+              <i class="bi bi-pencil"></i> Edit Profile
+            </button>
+            <button
+              type="button"
+              id="cancelButton"
+              class="cancel-button"
+              hidden
+            >
+              Cancel
+            </button>
+            <button type="submit" id="saveButton" class="save-button" hidden>
+              Save Changes
+            </button>
+          </div>
+          <p id="profileMessage" role="status"></p>
+        </form>
+        <hr />
+        <!-- Account Settings -->
+        <div class="section-heading">
+          <h3>Account Settings</h3>
+          <p>Manage your account preferences.</p>
+        </div>
+        <div class="settings-list">
+          <button type="button" class="setting-item" id="passwordButton">
+            <span> <i class="bi bi-lock"></i> Change Password </span>
+            <i class="bi bi-chevron-right"></i>
+          </button>
+          <div id="passwordPanel" hidden>
+            <form id="passwordForm">
+              <div class="form-group">
+                <label for="newPassword"> New Password </label>
+                <input
+                  type="password"
+                  id="newPassword"
+                  placeholder="Enter new password"
+                  minlength="6"
+                  required
+                />
+              </div>
+              <button type="submit" class="save-button">Update Password</button>
+              <p id="passwordMessage" role="status"></p>
+            </form>
+          </div>
+          <button type="button" class="setting-item" id="privacyButton">
+            <span> <i class="bi bi-shield-check"></i> Privacy Settings </span>
+            <i class="bi bi-chevron-right"></i>
+          </button>
+          <div id="privacyPanel" class="privacy-panel" hidden>
+            <p>
+              Your QuizRace profile information is displayed here for your
+              account management.
+            </p>
+            <p>
+              Privacy controls will be connected when backend functionality is
+              implemented.
+            </p>
+          </div>
+        </div>
+      </section>
+      <div class="back-home">
+        <a href="/main.html"> <i class="bi bi-arrow-left"></i> Back to Home </a>
+      </div>
+    </main>
+
+    <!-- our own footer goes here -->
+    <site-footer></site-footer>
+
+    <!---------------------------------------------->
+    <!-- Your own JavaScript scripts go here      -->
+    <!---------------------------------------------->
+
+    <script type="module" src="/src/profile.js"></script>
+  </body>
+</html>

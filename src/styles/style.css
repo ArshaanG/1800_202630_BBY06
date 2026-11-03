@@ -1,4 +1,4 @@
-#lobby-screen {
+#lobby-screen, #join-room-screen {
     font-size: 56px;
     font-weight: bold;
     margin: -110px 0px;
@@ -9,7 +9,7 @@
     margin-top: 20px;
 }
 
-#lobby-title {
+#lobby-title, #join-room-title {
     font-size: 48px;
     font-weight: bold;
     margin: 0px 0px;
@@ -18,4 +18,13 @@
 #player-list-container, p {
     margin-top: 70px;
     font-size: 24px;
+}
+
+#room-code-input {
+    font-size: 24px;
+    width: 8ch;
+    margin: 0 auto;
+    margin-top: 3%;
+    justify-content: center;
+    text-align: center;
 }

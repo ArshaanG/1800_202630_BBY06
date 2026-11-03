@@ -1,0 +1,318 @@
+
+/* QuizRace Profile Page */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f4f5fa;
+    font-family: Arial, sans-serif;
+    color: #040427;
+}
+
+.profile-container {
+    max-width: 900px;
+    margin: 45px auto;
+    padding: 0 20px;
+}
+
+.page-heading {
+    margin-bottom: 25px;
+}
+
+.page-heading h1 {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.page-heading p {
+    color: #777;
+    margin: 0;
+}
+
+.profile-card {
+    background: white;
+    padding: 35px;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.07);
+}
+
+/* Profile Picture */
+
+.profile-header {
+    text-align: center;
+    padding-bottom: 25px;
+}
+
+.profile-picture-container {
+    width: 135px;
+    height: 135px;
+    position: relative;
+    margin: 0 auto 15px;
+}
+
+#profileImage {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #f1c644;
+    background: #eee;
+}
+
+.camera-button {
+    position: absolute;
+    bottom: 5px;
+    right: 0;
+    background: #040427;
+    color: white;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.profile-header h2 {
+    font-size: 23px;
+    margin: 10px 0 5px;
+}
+
+.profile-header p {
+    color: #777;
+    margin-bottom: 15px;
+}
+
+.picture-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.upload-button,
+.remove-button {
+    padding: 9px 17px;
+    border-radius: 7px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.upload-button {
+    background: #040427;
+    color: white;
+}
+
+.remove-button {
+    border: 1px solid #ccc;
+    background: white;
+    color: #555;
+}
+
+.upload-button:hover {
+    background: #19194e;
+}
+
+.remove-button:hover {
+    background: #eee;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #e8e8e8;
+    margin: 25px 0;
+}
+
+/* Section Headings */
+
+.section-heading {
+    margin-bottom: 22px;
+}
+
+.section-heading h3 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.section-heading p {
+    color: #888;
+    font-size: 14px;
+}
+
+/* Form */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.form-group input {
+    padding: 12px;
+    border: 1px solid #d8d8df;
+    border-radius: 7px;
+    font-size: 14px;
+    outline: none;
+    width: 100%;
+}
+
+.form-group input:focus {
+    border-color: #040427;
+    box-shadow: 0 0 0 2px rgba(4, 4, 39, 0.08);
+}
+
+.form-group input:disabled {
+    background: #f3f3f5;
+    color: #777;
+    cursor: not-allowed;
+}
+
+/* Buttons */
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.edit-button,
+.save-button,
+.cancel-button {
+    padding: 11px 20px;
+    border-radius: 7px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.edit-button,
+.save-button {
+    background: #040427;
+    color: white;
+}
+
+.edit-button:hover,
+.save-button:hover {
+    background: #19194e;
+}
+
+.cancel-button {
+    background: #e8e8ee;
+    color: #333;
+}
+
+#profileMessage,
+#passwordMessage {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+/* Account Settings */
+
+.settings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.setting-item {
+    width: 100%;
+    background: #f8f8fb;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    color: #040427;
+    font-size: 15px;
+}
+
+.setting-item span {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.setting-item:hover {
+    background: #eeeeF5;
+}
+
+.privacy-panel,
+#passwordPanel {
+    background: #f8f8fb;
+    padding: 18px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+#passwordPanel .save-button {
+    margin-top: 5px;
+}
+
+/* Back Home */
+
+.back-home {
+    margin-top: 25px;
+}
+
+.back-home a {
+    color: #040427;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.back-home a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+
+@media (max-width: 600px) {
+
+    .profile-container {
+        margin: 25px auto;
+        padding: 0 12px;
+    }
+
+    .profile-card {
+        padding: 22px 17px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .page-heading h1 {
+        font-size: 25px;
+    }
+
+    .form-actions {
+        flex-wrap: wrap;
+    }
+
+    .form-actions button {
+        flex: 1;
+    }
+
+}

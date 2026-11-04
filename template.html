@@ -132,9 +132,42 @@
         Next
       </button>
     </div>
+    <div class="text-center mt-4">
+      <button type="button" class="btn btn-primary btn-lg px-5 py-3 fw-bold" data-bs-toggle="modal"
+        data-bs-target="#chatModal">
+        chat
+      </button>
+    </div>
 
   </main>
+  <div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="chatModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
 
+        <div class="modal-header">
+          <h2 class="modal-title fs-5" id="chatModalTitle">Chat</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <!-- Messages scroll here; header and input stay visible -->
+        <div class="modal-body" id="chatMessages" role="log" aria-label="Chat messages" aria-live="polite">
+          <p class="text-body-secondary small">
+            No messages yet.
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <form id="chatForm" class="d-flex gap-2 w-100">
+            <label for="chatInput" class="visually-hidden">Message</label>
+            <input type="text" id="chatInput" class="form-control" placeholder="Type a message..." autocomplete="off"
+              required>
+            <button type="submit" class="btn btn-primary">Send</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
   <!-- our own footer goes here -->
   <site-footer></site-footer>
 
@@ -143,7 +176,8 @@
   <!---------------------------------------------->
 
   <script type="module" src="/src/app.js"></script>
-  <script type="module" src="/src/main.js"></script>
+  <!--<script type="module" src="/src/main.js"></script>-->
+  <script type="module" src="/src/template.js"></script>
 </body>
 
 </html>

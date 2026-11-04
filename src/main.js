@@ -18,3 +18,4 @@ function showName() {
     });
 }
 // document.addEventListener('DOMContentLoaded', sayHello);
+showName()

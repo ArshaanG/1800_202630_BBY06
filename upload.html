@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>My BCIT Project</title>
+    <meta name="comp1800 template" content="My 1800 App" />
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Web Components for shared navbar and footer layout -->
+    <script type="module" src="/src/components/site-navbar.js"></script>
+    <script type="module" src="/src/components/site-footer.js"></script>
+    <link rel="stylesheet" href="/upload.css" />
+  </head>
+
+  <body>
+    <!------------------------------>
+    <!-- Your HTML Layout go here -->
+    <!------------------------------>
+
+    <!-- our own navbar goes here -->
+    <site-navbar></site-navbar>
+
+    <div class="dashboard">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+
+        <nav>
+          <a href="#" class="active">▤ My Documents</a>
+          <a href="#recent">◷ Recent</a>
+          <a href="#files">★ Starred</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <p>PDF Storage</p>
+          <small>Only PDF documents supported</small>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <div class="top-section">
+          <div>
+            <h1>My Documents</h1>
+            <p>Upload and organize your learning materials.</p>
+          </div>
+
+          <div class="user-info">
+            <span id="userName">Loading...</span>
+          </div>
+        </div>
+
+        <!-- Search and Upload -->
+        <div class="toolbar">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search your documents..."
+          />
+
+          <button id="uploadButton">+ Upload PDF</button>
+        </div>
+
+        <!-- Hidden PDF Input -->
+        <input
+          type="file"
+          id="pdfInput"
+          accept=".pdf,application/pdf"
+          multiple
+          hidden
+        />
+
+        <!-- Upload Area -->
+        <section class="upload-area" id="dropArea">
+          <div class="upload-icon">↑</div>
+
+          <h2>Upload your PDF files</h2>
+
+          <p>
+            Drag and drop your PDF documents here or click the button below.
+          </p>
+
+          <button id="browseButton">Browse Files</button>
+
+          <small>PDF files only</small>
+
+          <div id="uploadStatus"></div>
+        </section>
+
+        <!-- Documents -->
+        <section class="documents-section" id="files">
+          <div class="section-heading">
+            <div>
+              <h2>All Documents</h2>
+              <p>Your uploaded learning materials</p>
+            </div>
+
+            <span id="fileCount">0 documents</span>
+          </div>
+
+          <div class="file-table">
+            <div class="table-header">
+              <span>Name</span>
+              <span>File Size</span>
+              <span>Date Added</span>
+              <span>Actions</span>
+            </div>
+
+            <div id="fileList">
+              <p class="empty-message">Loading documents...</p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- our own footer goes here -->
+    <site-footer></site-footer>
+<!-- Upload Complete Section -->
+<section id="uploadDone" class="upload-done" hidden>
+    <div class="done-icon">✓</div>
+
+    <h2>Upload Complete!</h2>
+
+    <p>Your PDF has been successfully uploaded to QuizRace.</p>
+
+    <p id="uploadedFileName"></p>
+
+    <button id="goToQuizButton">
+        Continue to Quiz
+    </button>
+
+    <button id="backToDocumentsButton">
+        Back to My Documents
+    </button>
+</section>
+    <!---------------------------------------------->
+    <!-- Your own JavaScript scripts go here      -->
+    <!---------------------------------------------->
+
+    <script type="module" src="/src/upload.js"></script>
+  </body>
+</html>

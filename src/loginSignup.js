@@ -9,6 +9,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
 import './styles/style.css';
+import "/dark-mode.css";
 import {
     loginUser,
     signupUser,

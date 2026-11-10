@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
+import "/dark-mode.css";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { onAuthReady } from "/src/authentication.js";
 

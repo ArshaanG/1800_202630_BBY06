@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>My BCIT Project</title>
+    <meta name="comp1800 template" content="My 1800 App" />
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Web Components for shared navbar and footer layout -->
+    <script type="module" src="/src/components/site-navbar.js"></script>
+    <script type="module" src="/src/components/site-footer.js"></script>
+    <link rel="stylesheet" href="/help.css" />
+  </head>
+
+  <body>
+    <!------------------------------>
+    <!-- Your HTML Layout go here -->
+    <!------------------------------>
+
+    <!-- our own navbar goes here -->
+    <site-navbar></site-navbar>
+
+    <!-- Main content goes here -->
+    <main class="help-container">
+      <a href="menu.html" class="back-link">
+        <i class="bi bi-arrow-left"></i> Back to Menu
+      </a>
+
+      <h1>Help Centre</h1>
+      <p class="help-intro">
+        Need help using Quiz-Race? Find answers to common questions below.
+      </p>
+
+      <div class="accordion" id="helpAccordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#questionOne"
+            >
+              How do I join a quiz room?
+            </button>
+          </h2>
+          <div
+            id="questionOne"
+            class="accordion-collapse collapse show"
+            data-bs-parent="#helpAccordion"
+          >
+            <div class="accordion-body">
+              Open the Rooms page and select an available room. Follow the
+              instructions shown on the screen to join.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#questionTwo"
+            >
+              How do I upload learning materials?
+            </button>
+          </h2>
+          <div
+            id="questionTwo"
+            class="accordion-collapse collapse"
+            data-bs-parent="#helpAccordion"
+          >
+            <div class="accordion-body">
+              Open the Upload page, choose your PDF learning material, and
+              follow the instructions to continue.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#questionThree"
+            >
+              How do I start a quiz?
+            </button>
+          </h2>
+          <div
+            id="questionThree"
+            class="accordion-collapse collapse"
+            data-bs-parent="#helpAccordion"
+          >
+            <div class="accordion-body">
+              Select a quiz room or use the quiz option available after
+              uploading your learning material. Follow the on-screen
+              instructions to begin.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#questionFour"
+            >
+              Where can I see my scores?
+            </button>
+          </h2>
+          <div
+            id="questionFour"
+            class="accordion-collapse collapse"
+            data-bs-parent="#helpAccordion"
+          >
+            <div class="accordion-body">
+              Visit the Leaderboard page to see rankings and available scores.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#questionFive"
+            >
+              How do I update my profile?
+            </button>
+          </h2>
+          <div
+            id="questionFive"
+            class="accordion-collapse collapse"
+            data-bs-parent="#helpAccordion"
+          >
+            <div class="accordion-body">
+              Open the Profile page from the bottom navigation. You can edit
+              your profile information there.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#questionSix"
+            >
+              How can I change my app settings?
+            </button>
+          </h2>
+          <div
+            id="questionSix"
+            class="accordion-collapse collapse"
+            data-bs-parent="#helpAccordion"
+          >
+            <div class="accordion-body">
+              Open Menu and select App Settings. You can change your appearance
+              and other preferences there.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-help">
+        <h3>Still need help?</h3>
+        <p>Contact the Quiz-Race team for further assistance.</p>
+      </div>
+    </main>
+    <!-- our own footer goes here -->
+    <!-- <site-footer></site-footer> -->
+
+    <!---------------------------------------------->
+    <!-- Your own JavaScript scripts go here      -->
+    <!---------------------------------------------->
+
+    <script type="module" src="/src/app.js"></script>
+    <script type="module" src="/src/help.js"></script>
+  </body>
+</html>

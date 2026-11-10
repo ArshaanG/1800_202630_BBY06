@@ -1,3 +1,4 @@
+
 // Create the footer navigation for Quiz-Race
 const footer = document.createElement("nav");
 
@@ -7,8 +8,8 @@ footer.style.backgroundColor = "#040427";
 footer.innerHTML = `
     <div class="container-fluid justify-content-around">
 
-        <a class="nav-link text-center text-white active"
-           aria-current="page" href="index.html">
+        <a class="nav-link text-center text-white"
+           href="index.html">
             <i class="bi bi-house d-block fs-5"></i>
             <small>Home</small>
         </a>
@@ -37,3 +38,15 @@ footer.innerHTML = `
 `;
 
 document.body.appendChild(footer);
+
+// Highlight the current page
+const currentPage = window.location.pathname.split("/").pop();
+
+footer.querySelectorAll("a").forEach(link => {
+
+    if (link.getAttribute("href") === currentPage) {
+        link.classList.add("active");
+        link.setAttribute("aria-current", "page");
+    }
+
+});

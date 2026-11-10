@@ -1,0 +1,167 @@
+
+/* General */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f5fa;
+    color: #202124;
+    padding-bottom: 85px;
+}
+
+/* Main container */
+.settings-container {
+    max-width: 750px;
+    margin: 35px auto;
+    padding: 20px;
+}
+
+/* Back button */
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #040427;
+    text-decoration: none;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+
+.back-button:hover {
+    color: #5555a0;
+}
+
+/* Heading */
+.settings-header {
+    margin-bottom: 25px;
+}
+
+.settings-header h2 {
+    font-weight: 700;
+    color: #040427;
+}
+
+.settings-header p {
+    color: #777;
+}
+
+/* Settings cards */
+.settings-card {
+    background: white;
+    padding: 22px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.06);
+}
+
+.section-title {
+    color: #040427;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+/* Setting rows */
+.setting-option,
+.account-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 17px 0;
+    border-bottom: 1px solid #eeeeee;
+    gap: 15px;
+}
+
+.setting-option:last-child,
+.account-link:last-child {
+    border-bottom: none;
+}
+
+.setting-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.setting-info > i {
+    color: #040427;
+    font-size: 22px;
+    min-width: 25px;
+}
+
+.setting-info h6 {
+    margin: 0 0 5px;
+    font-weight: 600;
+}
+
+.setting-info p {
+    margin: 0;
+    color: #888;
+    font-size: 13px;
+}
+
+/* Switches */
+.form-check-input {
+    cursor: pointer;
+}
+
+.form-check-input:checked {
+    background-color: #040427;
+    border-color: #040427;
+}
+
+.account-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.account-link:hover {
+    color: #5555a0;
+}
+
+/* Message */
+.settings-message {
+    text-align: center;
+    color: #555;
+    font-size: 13px;
+}
+
+/* Dark mode */
+body.dark-mode {
+    background-color: #17172b;
+    color: white;
+}
+
+body.dark-mode .settings-card {
+    background-color: #252540;
+    color: white;
+}
+
+body.dark-mode .settings-header h2,
+body.dark-mode .section-title,
+body.dark-mode .setting-info > i,
+body.dark-mode .back-button {
+    color: #d8d8ff;
+}
+
+body.dark-mode .account-link {
+    color: white;
+}
+
+body.dark-mode .setting-option,
+body.dark-mode .account-link {
+    border-color: #41415b;
+}
+
+@media (max-width: 576px) {
+    .settings-container {
+        margin: 20px auto;
+        padding: 15px;
+    }
+
+    .settings-card {
+        padding: 17px;
+    }
+}

@@ -1,14 +1,16 @@
-import { logoutUser, onAuthReady } from "/src/authentication.js";
+
+import { onAuthReady } from "/src/authentication.js";
 
 class SiteNavbar extends HTMLElement {
-  constructor() {
-    super();
-    this.renderNavbar();
-    this.renderAuthControls();
-  }
 
-  renderNavbar() {
-    this.innerHTML = `
+    constructor() {
+        super();
+        this.renderNavbar();
+        this.renderAuthControls();
+    }
+
+    renderNavbar() {
+        this.innerHTML = `
             <nav class="navbar navbar-expand-lg navbar-dark"
                  style="background-color: #040427;">
 
@@ -37,7 +39,9 @@ class SiteNavbar extends HTMLElement {
 
                         <ul class="navbar-nav me-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="/">Home</a>
+                                <a class="nav-link" href="/">
+                                    Home
+                                </a>
                             </li>
                         </ul>
 
@@ -49,41 +53,32 @@ class SiteNavbar extends HTMLElement {
                 </div>
             </nav>
         `;
-  }
+    }
 
-  renderAuthControls() {
-    const authControls = this.querySelector("#authControls");
+    renderAuthControls() {
 
-    authControls.innerHTML = `
-            <div class="btn btn-outline-light"
-                 style="visibility: hidden; min-width: 80px;">
-                Log out
-            </div>
-        `;
+        const authControls = this.querySelector("#authControls");
 
-    onAuthReady(function (user) {
-      if (user) {
-        authControls.innerHTML = `
-                    <button class="btn btn-outline-light"
-                            id="signOutBtn"
-                            type="button">
-                        Log out
-                    </button>
-                `;
+        onAuthReady(function (user) {
 
-        const signOutBtn = authControls.querySelector("#signOutBtn");
+            if (user) {
 
-        signOutBtn.addEventListener("click", logoutUser);
-      } else {
-        authControls.innerHTML = `
+                // No logout button in the navbar
+                authControls.innerHTML = "";
+
+            } else {
+
+                // Show login button if user is signed out
+                authControls.innerHTML = `
                     <a class="btn btn-outline-light"
                        href="/login.html">
                         Log in
                     </a>
                 `;
-      }
-    });
-  }
+            }
+
+        });
+    }
 }
 
 customElements.define("site-navbar", SiteNavbar);

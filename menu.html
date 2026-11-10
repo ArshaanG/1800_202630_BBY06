@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>My BCIT Project</title>
+    <meta name="comp1800 template" content="My 1800 App" />
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Web Components for shared navbar and footer layout -->
+    <script type="module" src="/src/components/site-navbar.js"></script>
+    <script type="module" src="/src/components/site-footer.js"></script>
+    <link rel="stylesheet" href="/menu.css" />
+  </head>
+
+  <body>
+    <!------------------------------>
+    <!-- Your HTML Layout go here -->
+    <!------------------------------>
+
+    <!-- our own navbar goes here -->
+    <site-navbar></site-navbar>
+
+    <!-- Main content goes here -->
+    <!-- Main Menu -->
+    <main class="menu-container">
+      <div class="menu-header">
+        <h2>Menu</h2>
+        <p>Manage your Quiz-Race experience</p>
+      </div>
+
+      <div class="menu-card">
+        <!-- Settings -->
+        <a href="settings.html" class="menu-option">
+          <div class="menu-icon">
+            <i class="bi bi-gear-fill"></i>
+          </div>
+
+          <div class="menu-text">
+            <h5>App Settings</h5>
+            <p>Customize your app experience</p>
+          </div>
+
+          <i class="bi bi-chevron-right arrow-icon"></i>
+        </a>
+
+        <!-- Help -->
+        <a href="help.html" class="menu-option">
+          <div class="menu-icon">
+            <i class="bi bi-question-circle-fill"></i>
+          </div>
+
+          <div class="menu-text">
+            <h5>Help</h5>
+            <p>Get help using Quiz-Race</p>
+          </div>
+
+          <i class="bi bi-chevron-right arrow-icon"></i>
+        </a>
+
+        <!-- About Us -->
+        <a href="about.html" class="menu-option">
+          <div class="menu-icon">
+            <i class="bi bi-info-square-fill"></i>
+          </div>
+
+          <div class="menu-text">
+            <h5>About Us</h5>
+            <p>Learn more about Quiz-Race</p>
+          </div>
+
+          <i class="bi bi-chevron-right arrow-icon"></i>
+        </a>
+
+        <!-- Logout -->
+        <button id="logoutBtn" class="menu-option logout-option">
+          <div class="menu-icon">
+            <i class="bi bi-box-arrow-right"></i>
+          </div>
+
+          <div class="menu-text">
+            <h5>Log out</h5>
+            <p>Sign out of your account</p>
+          </div>
+        </button>
+      </div>
+    </main>
+
+    <!-- our own footer goes here -->
+    <!-- <site-footer></site-footer> -->
+
+    <!---------------------------------------------->
+    <!-- Your own JavaScript scripts go here      -->
+    <!---------------------------------------------->
+
+    <script type="module" src="/src/app.js"></script>
+    <script type="module" src="/src/menu.js"></script>
+  </body>
+</html>

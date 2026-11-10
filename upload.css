@@ -1,0 +1,392 @@
+
+/* General */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f6f8fc;
+    color: #202124;
+}
+
+/* Dashboard layout */
+.dashboard {
+    display: flex;
+    min-height: 85vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 245px;
+    background: white;
+    padding: 30px 20px;
+    border-right: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.sidebar h2 {
+    color: #2563eb;
+    margin-bottom: 35px;
+    font-size: 25px;
+}
+
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sidebar nav a {
+    text-decoration: none;
+    color: #444;
+    padding: 13px 15px;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a.active {
+    background: #e8f0fe;
+    color: #1a73e8;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+    padding: 15px 5px;
+    color: #555;
+}
+
+.sidebar-bottom small {
+    display: block;
+    margin-top: 8px;
+    color: #888;
+}
+
+/* Main content */
+.main-content {
+    flex: 1;
+    padding: 35px;
+    min-width: 0;
+}
+
+.top-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.top-section h1 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.top-section p,
+.section-heading p {
+    color: #777;
+    font-size: 14px;
+}
+
+.user-info {
+    color: #555;
+    font-weight: bold;
+}
+
+/* Toolbar */
+.toolbar {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.toolbar input {
+    flex: 1;
+    min-width: 0;
+    padding: 14px 18px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    font-size: 15px;
+    outline: none;
+}
+
+.toolbar input:focus {
+    border-color: #4285f4;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.toolbar button,
+.upload-area button {
+    background: #2563eb;
+    color: white;
+    padding: 13px 22px;
+    border-radius: 25px;
+}
+
+button:hover {
+    opacity: 0.85;
+}
+
+/* Upload area */
+.upload-area {
+    background: white;
+    border: 2px dashed #c8d8f5;
+    border-radius: 16px;
+    padding: 45px 20px;
+    text-align: center;
+    margin-bottom: 40px;
+    transition: 0.2s;
+}
+
+.upload-area.drag-over {
+    background: #eaf2ff;
+    border-color: #2563eb;
+}
+
+.upload-icon {
+    width: 55px;
+    height: 55px;
+    background: #e8f0fe;
+    color: #2563eb;
+    border-radius: 50%;
+    margin: 0 auto 18px;
+    display: grid;
+    place-items: center;
+    font-size: 30px;
+}
+
+.upload-area h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.upload-area p {
+    color: #777;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.upload-area small {
+    display: block;
+    margin-top: 15px;
+    color: #888;
+}
+
+#uploadStatus {
+    margin-top: 15px;
+    color: #2563eb;
+    font-size: 14px;
+}
+
+/* Document section */
+.documents-section {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.section-heading h2 {
+    font-size: 21px;
+    margin-bottom: 7px;
+}
+
+#fileCount {
+    color: #777;
+    font-size: 13px;
+}
+
+/* File table */
+.table-header,
+.file-row {
+    display: grid;
+    grid-template-columns: minmax(160px, 2fr) 1fr 1fr 1fr;
+    gap: 15px;
+    align-items: center;
+    padding: 17px 10px;
+}
+
+.table-header {
+    color: #666;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+    font-size: 13px;
+}
+
+.file-row {
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+}
+
+.file-row:hover {
+    background: #f8faff;
+}
+
+.file-name {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    font-weight: bold;
+}
+
+.pdf-icon {
+    color: #ea4335;
+    font-size: 25px;
+}
+
+.file-name span:last-child {
+    overflow-wrap: anywhere;
+}
+
+.file-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.file-actions a,
+.delete-button {
+    color: #2563eb;
+    text-decoration: none;
+    background: none;
+    font-size: 13px;
+}
+
+.delete-button {
+    color: #dc2626;
+}
+
+.empty-message {
+    text-align: center;
+    padding: 35px;
+    color: #888;
+}
+
+/* Mobile */
+@media (max-width: 800px) {
+
+    .sidebar {
+        width: 180px;
+        padding: 20px 10px;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+
+    .table-header {
+        display: none;
+    }
+
+    .file-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+.dashboard button {
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.dashboard button:hover {
+    opacity: 0.85;
+}
+    .toolbar {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 550px) {
+
+    .sidebar {
+        display: none;
+    }
+
+    .main-content {
+        padding: 16px;
+    }
+
+    .top-section h1 {
+        font-size: 23px;
+    }
+
+    .documents-section {
+        padding: 15px;
+    }
+}
+/* Upload Done Section */
+.upload-done {
+    text-align: center;
+    padding: 60px 20px;
+    background: white;
+    border-radius: 15px;
+    margin: 40px auto;
+    max-width: 600px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.upload-done[hidden] {
+    display: none;
+}
+
+.done-icon {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background: #dcfce7;
+    color: #16a34a;
+    font-size: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.upload-done h2 {
+    color: #040427;
+    margin-bottom: 12px;
+}
+
+.upload-done p {
+    color: #666;
+}
+
+#goToQuizButton,
+#backToDocumentsButton {
+    padding: 12px 22px;
+    border: none;
+    border-radius: 8px;
+    margin: 10px 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#goToQuizButton {
+    background: #040427;
+    color: white;
+}
+
+#backToDocumentsButton {
+    background: #eeeef5;
+    color: #040427;
+}

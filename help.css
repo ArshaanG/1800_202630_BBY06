@@ -1,0 +1,100 @@
+body {
+    background-color: #f5f6fa;
+    padding-bottom: 90px;
+}
+
+.help-container {
+    max-width: 750px;
+    margin: 35px auto;
+    padding: 20px;
+}
+
+.back-link {
+    display: inline-block;
+    text-decoration: none;
+    color: #343a70;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+.help-container h1 {
+    font-weight: 700;
+    color: #040427;
+}
+
+.help-intro {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.accordion {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.accordion-item {
+    border: none;
+    margin-bottom: 10px;
+    border-radius: 10px !important;
+    overflow: hidden;
+}
+
+.accordion-button {
+    font-weight: 600;
+    padding: 18px;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #040427;
+    color: white;
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+}
+
+.accordion-body {
+    color: #555;
+    line-height: 1.6;
+}
+
+.contact-help {
+    background-color: white;
+    padding: 22px;
+    margin-top: 25px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.contact-help h3 {
+    color: #040427;
+    font-weight: 700;
+}
+
+/* Dark mode */
+body.dark-mode .help-container,
+body.dark-mode .help-container h1,
+body.dark-mode .help-container p {
+    color: white;
+}
+
+body.dark-mode .accordion-item,
+body.dark-mode .accordion-button.collapsed,
+body.dark-mode .accordion-body,
+body.dark-mode .contact-help {
+    background-color: #1e1e1e;
+    color: white;
+}
+
+body.dark-mode .accordion-button:not(.collapsed) {
+    background-color: #34345c;
+    color: white;
+}
+
+body.dark-mode .accordion-button::after {
+    filter: invert(1);
+}
+
+body.dark-mode .back-link {
+    color: #aebcff;
+}

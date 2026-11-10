@@ -42,4 +42,6 @@ const app = initializeApp(firebaseConfig);
 // or signout operations (that's why we export it).
 // ---------------------------------------------------------
 export const auth = getAuth(app);
+
+// Firestore Database
 export const db = getFirestore(app);

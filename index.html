@@ -12,6 +12,11 @@
     <script type="module" src="/src/components/site-navbar.js"></script>
     <!-- <script type="module" src="/src/components/site-navbar 1.js"></script> -->
     <script type="module" src="/src/main.js"></script>
+    <script>
+    if (localStorage.getItem("darkMode") === "true") {
+        document.documentElement.classList.add("dark-mode");
+    }
+</script>
   </head>
 
   <body>

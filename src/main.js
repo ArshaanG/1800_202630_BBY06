@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
-import 'bootstrap-icons/font/bootstrap-icons.css';   
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import "/dark-mode.css";   
 // Import the file that has the authentication helper function we want to use.
 // The function we want to use is called "onAuthReady" which returns the login state
 import { onAuthReady } from "/src/authentication.js";
@@ -18,3 +19,4 @@ function showName() {
     });
 }
 // document.addEventListener('DOMContentLoaded', sayHello);
+showName()

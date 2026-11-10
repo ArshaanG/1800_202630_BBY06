@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>My BCIT Project</title>
+    <meta name="comp1800 template" content="My 1800 App">
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Web Components for shared navbar and footer layout -->
+     <script type="module" src="/src/components/site-navbar.js"></script> 
+    <script type="module" src="/src/components/site-footer.js"></script>
+    <link rel="stylesheet" href="/about.css" />
+</head>
+
+<body>
+    <!------------------------------>
+    <!-- Your HTML Layout go here -->
+    <!------------------------------>
+
+    <!-- our own navbar goes here -->
+    <site-navbar></site-navbar>
+    
+    <!-- Main content goes here -->
+ <main class="about-container">
+
+        <a href="menu.html" class="back-link">
+            <i class="bi bi-arrow-left"></i> Back to Menu
+        </a>
+
+        <section class="about-header">
+            <img src="/Public/images/quizrace.jpeg"
+                 alt="Quiz-Race Logo"
+                 class="about-logo">
+
+            <h1>About Quiz-Race</h1>
+
+            <p>
+                Making learning more fun, interactive, and competitive.
+            </p>
+        </section>
+
+        <section class="about-card">
+            <h2>Who We Are</h2>
+
+            <p>
+                Quiz-Race is a learning platform designed to help students
+                learn through fun quizzes and friendly competition.
+                Our goal is to make studying more engaging and encourage
+                students to test their knowledge.
+            </p>
+        </section>
+
+        <section class="about-card">
+            <h2>Our Mission</h2>
+
+            <p>
+                Our mission is to make learning enjoyable and accessible
+                by combining education with interactive quizzes,
+                competition, and collaboration.
+            </p>
+        </section>
+
+        <section class="about-card">
+            <h2>What Quiz-Race Offers</h2>
+
+            <div class="feature">
+                <i class="bi bi-people-fill"></i>
+                <div>
+                    <h3>Quiz Rooms</h3>
+                    <p>Learn and compete with other players.</p>
+                </div>
+            </div>
+
+            <div class="feature">
+                <i class="bi bi-file-earmark-pdf"></i>
+                <div>
+                    <h3>Learning Materials</h3>
+                    <p>Upload study materials to support your learning.</p>
+                </div>
+            </div>
+
+            <div class="feature">
+                <i class="bi bi-trophy-fill"></i>
+                <div>
+                    <h3>Leaderboard</h3>
+                    <p>Track rankings and celebrate achievements.</p>
+                </div>
+            </div>
+
+            <div class="feature">
+                <i class="bi bi-person-circle"></i>
+                <div>
+                    <h3>User Profiles</h3>
+                    <p>Manage your personal account information.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="about-card team-card">
+            <h2>Our Team</h2>
+
+            <p>
+                Quiz-Race is developed by Team BBY06 as part of
+                the BCIT COMP 1800 project.
+            </p>
+
+            <h3>Team BBY06</h3>
+            <p>Building a better way to learn, one quiz at a time.</p>
+        </section>
+
+        <p class="about-footer">
+            © 2026 Quiz-Race. All rights reserved.
+        </p>
+
+    </main>
+    <!-- our own footer goes here -->
+    <!-- <site-footer></site-footer> -->
+    
+    <!---------------------------------------------->
+    <!-- Your own JavaScript scripts go here      -->
+    <!---------------------------------------------->
+
+    <script type="module" src="/src/app.js"></script>
+<script type="module" src="/src/about.js"></script>
+</body>
+
+</html>

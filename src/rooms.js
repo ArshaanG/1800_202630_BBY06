@@ -4,24 +4,15 @@ import "/dark-mode.css";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import "./styles/style.css";
 
-import { auth } from "./firebaseConfig.js";
-import { initializeApp, getApps, getApp } from "firebase/app";
+import { auth, db } from "./firebaseConfig.js";
 import {
-    getFirestore, doc, getDoc, setDoc, updateDoc, deleteDoc,
+    doc, getDoc, setDoc, updateDoc, deleteDoc, 
     onSnapshot, deleteField, serverTimestamp
 } from "firebase/firestore";
 
-const app = getApps().length ? getApp() : initializeApp({
-    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-    appId: import.meta.env.VITE_FIREBASE_APP_ID,
-});
-
-const db = getFirestore(app);
-
 let currentCode = null;
 let unsubscribe = null;
+let isReady = false;
 
 let playerId = sessionStorage.getItem("playerId");
 if (!playerId) {
@@ -77,9 +68,12 @@ function updatePlayerList(code) {
             let text = player?.name || "Guest";
             if (id === playerId) text += " (You)";
             if (id === data.hostId) text += " (Host)";
+            if (player?.ready) text += " (Ready)";
             li.textContent = text;
             list.appendChild(li);
         });
+        isReady = !!data.players?.[playerId]?.ready;
+        document.getElementById('ready-button').textContent = isReady ? "Unready" : "Ready";
     });
 }
 
@@ -88,7 +82,7 @@ async function createRoom() {
     await setDoc(doc(db, "rooms", currentCode), {
         createdAt: serverTimestamp(),
         hostId: playerId,
-        players: { [playerId]: { name: getName() } }
+        players: { [playerId]: { name: getName(), ready: false } }
     });
     document.getElementById('room-code').textContent = currentCode;
     updatePlayerList(currentCode);
@@ -110,7 +104,7 @@ async function joinRoom() {
         return;
     }
 
-    await updateDoc(ref, { [`players.${playerId}`]: { name: getName() } });
+    await updateDoc(ref, { [`players.${playerId}`]: { name: getName(), ready: false } });
     currentCode = roomCode;
     document.getElementById('room-code').textContent = roomCode;
     updatePlayerList(roomCode);
@@ -125,6 +119,7 @@ async function leaveRoom() {
     if (currentCode) {
         const ref = doc(db, "rooms", currentCode);
         currentCode = null;
+        isReady = false;
         try {
             await updateDoc(ref, { [`players.${playerId}`]: deleteField() });
             const snap = await getDoc(ref);
@@ -136,6 +131,13 @@ async function leaveRoom() {
         }
     }
     showHome();
+}
+
+async function toggleReady() {
+    if (!currentCode) return;
+    await updateDoc(doc(db, "rooms", currentCode), { 
+        [`players.${playerId}.ready`]: !isReady 
+    });
 }
 
 function copyCode() {
@@ -151,3 +153,5 @@ document.getElementById('leave-room-button').addEventListener('click', leaveRoom
 document.getElementById('copy-code-button').addEventListener('click', copyCode);
 document.getElementById('join-room-button').addEventListener('click', showJoin);
 document.getElementById('join-room-submit').addEventListener('click', joinRoom);
+document.getElementById('join-back-button').addEventListener('click', showHome);
+document.getElementById('ready-button').addEventListener('click', toggleReady);

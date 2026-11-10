@@ -24,11 +24,11 @@
 
             <div id="player-list-container">
                 <p>Players in the room:</p>
-                <ul id="player-list" class="list-unstyled fs-5">
-                <li>You</li>
-                </ul>
+                <ul id="player-list" class="list-unstyled fs-5"></ul>
             </div>
 
+            <button id="ready-button" class="btn btn-success m-2">Ready</button>
+            <br>
             <button id="leave-room-button" class="btn btn-danger">Leave Room</button>
         </div>
     </div>
@@ -40,6 +40,7 @@
             <p id="room-code-instructions" style="font-size: 18px;">Your code must contain only <u>uppercase letters</u> and <u>numbers.</u></p>
             <input type="text" id="room-code-input" class="form-control mb-3" maxlength="6">
             <button id="join-room-submit" class="btn btn-primary">Submit</button>
+            <button id="join-back-button" class="btn btn-link">Back</button>
         </div>
     </div>
 

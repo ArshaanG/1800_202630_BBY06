@@ -55,7 +55,7 @@
   <div class="col-6">
     <label for="quantity" class="form-label">Questions</label>
     <input type="number" class="form-control"
-           id="quantity" name="quantity" min="1" value="1">
+           id="quantity" name="quantity" min="1" max="50" value="1">
   </div>
 
   <div class="col-6">
@@ -68,11 +68,15 @@
     </select>
   </div>
 </div>
+<div class="my-4">
+    <button id="uploadPdfButton" type="button" class="btn btn-outline-primary">
+        Upload PDF
+    </button>
 
+    <p id="pdfStatus" class="mt-2">No PDF selected.</p>
+</div>
 <div class="text-center my-4">
-  <button type="button" class="btn btn-primary btn-lg px-5 py-3 fs-2 fw-bold">
-    Generate
-  </button>
+  <button id="generateButton" type="button" class="btn btn-primary btn-lg px-5 py-3 fs-2 fw-bold">Generate</button>
 </div>
 </div>
 
@@ -85,7 +89,8 @@
     <!---------------------------------------------->
 
     <script type="module" src="/src/app.js"></script>
-<script type="module" src="/src/main.js"></script>
+<!--<script type="module" src="/src/main.js"></script>-->
+<script type="module" src="/src/gen-settings.js"></script>
 </body>
 
 </html>

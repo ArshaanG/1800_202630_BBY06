@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
-
+import "/dark-mode.css";
 //--------------------------------------------------------------
 // If you have custom global styles, import them as well:
 //--------------------------------------------------------------

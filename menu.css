@@ -1,0 +1,139 @@
+
+/* General */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f4f5fa;
+    font-family: Arial, sans-serif;
+    color: #202124;
+    padding-bottom: 85px;
+}
+
+/* Main container */
+.menu-container {
+    max-width: 750px;
+    margin: 55px auto;
+    padding: 20px;
+}
+
+/* Heading */
+.menu-header {
+    margin-bottom: 25px;
+}
+
+.menu-header h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #040427;
+}
+
+.menu-header p {
+    color: #777;
+    margin-top: 5px;
+}
+
+/* Menu card */
+.menu-card {
+    background-color: white;
+    border-radius: 15px;
+    padding: 10px 22px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* Individual options */
+.menu-option {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    width: 100%;
+    padding: 20px 10px;
+    text-decoration: none;
+    color: #202124;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #e5e5e5;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.menu-option:last-child {
+    border-bottom: none;
+}
+
+.menu-option:hover {
+    background-color: #f5f5fa;
+}
+
+/* Icons */
+.menu-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    background-color: #eeeeF8;
+    color: #040427;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    flex-shrink: 0;
+}
+
+/* Text */
+.menu-text {
+    flex: 1;
+}
+
+.menu-text h5 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.menu-text p {
+    font-size: 13px;
+    color: #888;
+    margin: 5px 0 0;
+}
+
+/* Arrow */
+.arrow-icon {
+    font-size: 20px;
+    color: #777;
+}
+
+/* Logout */
+.logout-option {
+    color: #b42318;
+}
+
+.logout-option .menu-icon {
+    color: #b42318;
+    background-color: #fff0ef;
+}
+
+/* Mobile layout */
+@media (max-width: 576px) {
+
+    .menu-container {
+        margin: 25px auto;
+        padding: 15px;
+    }
+
+    .menu-header h2 {
+        font-size: 24px;
+    }
+
+    .menu-option {
+        padding: 17px 5px;
+        gap: 12px;
+    }
+
+    .menu-card {
+        padding: 8px 12px;
+    }
+}

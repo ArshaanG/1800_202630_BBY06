@@ -1,4 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import "/dark-mode.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "/src/components/site-navbar.js";
 import { db } from "./firebaseConfig.js";

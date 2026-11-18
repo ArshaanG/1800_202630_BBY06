@@ -1,0 +1,119 @@
+
+body {
+    background-color: #f5f6fa;
+    padding-bottom: 90px;
+}
+
+.about-container {
+    max-width: 800px;
+    margin: 35px auto;
+    padding: 20px;
+}
+
+.back-link {
+    display: inline-block;
+    text-decoration: none;
+    color: #343a70;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+
+.about-header {
+    text-align: center;
+    padding: 30px 15px;
+}
+
+.about-logo {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 20px;
+    margin-bottom: 15px;
+}
+
+.about-header h1 {
+    color: #040427;
+    font-weight: 800;
+}
+
+.about-header p {
+    color: #666;
+}
+
+.about-card {
+    background-color: white;
+    padding: 25px;
+    margin-bottom: 18px;
+    border-radius: 14px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+}
+
+.about-card h2 {
+    color: #040427;
+    font-size: 21px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.about-card p {
+    color: #666;
+    line-height: 1.7;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 14px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.feature:last-child {
+    border-bottom: none;
+}
+
+.feature i {
+    font-size: 27px;
+    color: #343a70;
+}
+
+.feature h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.feature p {
+    margin: 0;
+}
+
+.team-card {
+    text-align: center;
+}
+
+.about-footer {
+    text-align: center;
+    color: #888;
+    font-size: 13px;
+    margin-top: 25px;
+}
+
+/* Dark mode */
+body.dark-mode .about-card {
+    background-color: #1e1e1e;
+}
+
+body.dark-mode .about-container h1,
+body.dark-mode .about-container h2,
+body.dark-mode .about-container h3,
+body.dark-mode .about-container p {
+    color: white;
+}
+
+body.dark-mode .feature {
+    border-color: #444;
+}
+
+body.dark-mode .back-link {
+    color: #aebcff;
+}

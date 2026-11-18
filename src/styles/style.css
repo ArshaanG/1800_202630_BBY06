@@ -28,3 +28,6 @@
     justify-content: center;
     text-align: center;
 }
+body {
+    padding-bottom: 75px;
+}

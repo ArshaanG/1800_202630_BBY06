@@ -62,6 +62,13 @@ function updatePlayerList(code) {
             return;
         }
         const data = snap.data();
+        document.getElementById("gen-quiz-button").hidden =
+        data.hostId !== playerId;
+        if (data.quizStatus === "ready" && data.quiz) {
+            window.location.href =
+                `/template.html?roomCode=${encodeURIComponent(code)}`;
+            return;
+        }
         const list = document.getElementById('player-list');
         list.innerHTML = '';
         Object.entries(data.players || {})
@@ -84,6 +91,7 @@ function updatePlayerList(code) {
 
 async function createRoom() {
     currentCode = await generateRoomCode();
+    sessionStorage.setItem("currentRoomCode", currentCode);
     await setDoc(doc(db, "rooms", currentCode), {
         createdAt: serverTimestamp(),
         hostId: playerId,
@@ -167,6 +175,7 @@ async function joinRoom() {
 }
 
 async function leaveRoom() {
+    sessionStorage.removeItem("currentRoomCode");
     if (unsubscribe) {
         unsubscribe();
         unsubscribe = null;
@@ -190,8 +199,8 @@ async function leaveRoom() {
 
 async function toggleReady() {
     if (!currentCode) return;
-    await updateDoc(doc(db, "rooms", currentCode), { 
-        [`players.${playerId}.ready`]: !isReady 
+    await updateDoc(doc(db, "rooms", currentCode), {
+        [`players.${playerId}.ready`]: !isReady
     });
 }
 
@@ -211,3 +220,21 @@ document.getElementById('join-room-submit').addEventListener('click', joinRoom);
 document.getElementById('join-back-button').addEventListener('click', showHome);
 document.getElementById('ready-button').addEventListener('click', toggleReady);
 document.getElementById('start-quiz-button').addEventListener('click', startQuiz);
+document.getElementById("gen-quiz-button").addEventListener("click", async () => {
+    if (!currentCode) return;
+
+    try {
+        const snapshot = await getDoc(doc(db, "rooms", currentCode));
+
+        if (!snapshot.exists() || snapshot.data().hostId !== playerId) {
+            alert("Only the host can generate a quiz.");
+            return;
+        }
+
+        sessionStorage.setItem("currentRoomCode", currentCode);
+        window.location.href =`/gen-settings.html?roomCode=${encodeURIComponent(currentCode)}`;
+    } catch (error) {
+        console.error(error);
+        alert("Could not check room ownership.");
+    }
+});

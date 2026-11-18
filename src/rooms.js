@@ -6,12 +6,13 @@ import "./styles/style.css";
 import { auth, db } from "./firebaseConfig.js";
 import {
     doc, getDoc, setDoc, updateDoc, deleteDoc, 
-    onSnapshot, deleteField, serverTimestamp
+    onSnapshot, deleteField, serverTimestamp, runTransaction
 } from "firebase/firestore";
 
 let currentCode = null;
 let unsubscribe = null;
 let isReady = false;
+const MAX_PLAYERS = 8;
 
 let playerId = sessionStorage.getItem("playerId");
 if (!playerId) {
@@ -62,11 +63,15 @@ function updatePlayerList(code) {
         const data = snap.data();
         const list = document.getElementById('player-list');
         list.innerHTML = '';
-        Object.entries(data.players || {}).forEach(([id, player]) => {
+        Object.entries(data.players || {})
+        .sort(([idA], [idB]) => (idB === data.hostId) - (idA === data.hostId))
+        .forEach(([id, player]) => {
+            const allReady = Object.values(data.players || {}).every(p => p.ready);
+            document.getElementById('start-quiz-button').disabled = (playerId !== data.hostId) || !allReady;
             const li = document.createElement('li');
             let text = player?.name || "Guest";
             if (id === playerId) text += " (You)";
-            if (id === data.hostId) text += " (Host)";
+            if (id === data.hostId) text += " (👑)";
             if (player?.ready) text += " (Ready)";
             li.textContent = text;
             list.appendChild(li);
@@ -83,10 +88,47 @@ async function createRoom() {
         hostId: playerId,
         players: { [playerId]: { name: getName(), ready: false } }
     });
-    document.getElementById('room-code').textContent = currentCode;
+    document.getElementById('room-code').textContent = currentCode; 
     updatePlayerList(currentCode);
     showLobby();
 }
+
+async function startQuiz() {
+    const button = document.getElementById('start-quiz-button');
+    button.disabled = true;
+    try {
+        const ref = doc(db, "rooms", currentCode);
+        const snap = await getDoc(ref);
+        if (!snap.exists()) return;
+
+        const data = snap.data();
+        if (data.hostId !== playerId) {
+            button.disabled = false;
+            return alert("Only the host can start the quiz.");
+        }
+
+        const allReady = Object.values(data.players || {}).every(p => p.ready);
+        if (!allReady) {
+            button.disabled = false;
+            return alert("All players must be ready to start the quiz.");
+        }
+        await updateDoc(ref, { started: true });
+    } catch (err) {
+        console.error("Failed to start quiz", err);
+        button.disabled = false;
+    }
+}
+
+/* uncomment this when quiz page redirection is setup
+onSnapshot(doc(db, "rooms", currentCode), (snap) => {
+    const data = snap.data();
+    if (data?.status === "started") redirectToQuiz();
+});
+
+async function redirectToQuiz() {
+    window.location.href = "/quiz.html";
+}
+*/
 
 async function joinRoom() {
     const roomCode = document.getElementById('room-code-input').value.trim().toUpperCase();
@@ -97,16 +139,29 @@ async function joinRoom() {
     }
 
     const ref = doc(db, "rooms", roomCode);
-    const snap = await getDoc(ref);
-    if (!snap.exists()) {
-        alert("Room not found.");
-        return;
+
+    try {
+        await runTransaction(db, async (transaction) => {
+            const snap = await transaction.get(ref);
+            if (!snap.exists()) throw new Error("Room not found.");
+            const data = snap.data();
+            const players = data.players || {};
+            if (players[playerId]) return;
+            if (data.started) throw new Error("Quiz has already started.");
+            if (Object.keys(players).length >= MAX_PLAYERS) {
+                throw new Error("Room is full.");
+            }
+            transaction.update(ref, {
+                [`players.${playerId}`]: { name: getName(), ready: false }
+            });
+        });
+    } catch (err) {
+        return alert(err.message);
     }
 
-    await updateDoc(ref, { [`players.${playerId}`]: { name: getName(), ready: false } });
     currentCode = roomCode;
-    document.getElementById('room-code').textContent = roomCode;
-    updatePlayerList(roomCode);
+    document.getElementById('room-code').textContent = currentCode;
+    updatePlayerList(currentCode);
     showLobby();
 }
 
@@ -125,8 +180,8 @@ async function leaveRoom() {
             if (snap.exists() && Object.keys(snap.data().players || {}).length === 0) {
                 await deleteDoc(ref);
             }
-        } catch (e) {
-            console.error("leave failed", e);
+        } catch (err) {
+            console.error("leave failed", err);
         }
     }
     showHome();
@@ -154,3 +209,4 @@ document.getElementById('join-room-button').addEventListener('click', showJoin);
 document.getElementById('join-room-submit').addEventListener('click', joinRoom);
 document.getElementById('join-back-button').addEventListener('click', showHome);
 document.getElementById('ready-button').addEventListener('click', toggleReady);
+document.getElementById('start-quiz-button').addEventListener('click', startQuiz);

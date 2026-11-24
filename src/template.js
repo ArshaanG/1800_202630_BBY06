@@ -4,7 +4,7 @@ import "/dark-mode.css";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { onAuthReady } from "/src/authentication.js";
 import { db } from "./firebaseConfig.js";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc, increment } from "firebase/firestore";
 
 function localName() {
   return new Promise((resolve) => {
@@ -67,6 +67,8 @@ let quizData = null;
 let currentQuestionIndex = 0;
 let hasAnswered = false;
 
+const quizRoomCode = new URLSearchParams(window.location.search).get("roomCode");
+const playerId = sessionStorage.getItem("playerId");
 const questionProgress = document.getElementById("questionProgress");
 const questionText = document.getElementById("questionText");
 const nextButton = document.getElementById("nextButton");
@@ -184,6 +186,9 @@ function submitAnswer() {
 
   if (correct) {
     feedback.textContent = "Correct!";
+    updateDoc(doc(db, "rooms", quizRoomCode), {
+      [`players.${playerId}.score`]: increment(1)
+    }).catch(console.error);
   } else {
     feedback.textContent =
       `Incorrect. Correct answer: ${getCurrentQuestion().correctAnswer}`;
@@ -219,6 +224,11 @@ function showResults() {
   questionProgress.textContent = "Quiz complete";
   questionText.textContent = "You've finished all the questions.";
   nextButton.hidden = true;
+  updateDoc(doc(db, "rooms", quizRoomCode), {
+    [`players.${playerId}.finished`]: true
+  }).then(() => {
+    window.location.href = `/quiz-results.html?roomCode=${encodeURIComponent(quizRoomCode)}`;
+  }).catch(console.error);
 }
 
 function startQuiz() {

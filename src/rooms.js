@@ -62,6 +62,10 @@ function updatePlayerList(code) {
             return;
         }
         const data = snap.data();
+        if (data.started) {
+            window.location.href = `/template.html?roomCode=${encodeURIComponent(code)}`;
+            return;
+        }
         document.getElementById("gen-quiz-button").hidden =
         data.hostId !== playerId;
         if (data.quizStatus === "ready" && data.quiz) {

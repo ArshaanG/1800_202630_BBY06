@@ -36,8 +36,8 @@ const backToDocumentsButton = document.getElementById("backToDocumentsButton");
 
 // Store the current user and loaded documents
 let currentUser = null;
-let documents = [];
-let currentView = "documents";
+// let documents = [];
+// let currentView = "documents";
 
 // Maximum PDF size is 500 KB
 const MAX_FILE_SIZE = 500 * 1024;
@@ -107,14 +107,33 @@ async function isValidPDF(file) {
 
     return header === "%PDF-";
 }
+async function handleFiles(files) {
+    if (!currentUser || isUploading || files.length === 0) {
+        return;
+    }
 
+    if (files.length !== 1) {
+        uploadStatus.textContent = "Please upload one PDF at a time.";
+        return;
+    }
 
 // Convert a PDF into Base64 so it can be saved in Firestore
 function convertToBase64(file) {
 
-    return new Promise((resolve, reject) => {
+        if (!(await isValidPDF(file))) {
+            throw new Error("Only valid PDF files are allowed.");
+        }
 
-        const reader = new FileReader();
+        await uploadPDF(file);
+    } catch (error) {
+        console.error(error);
+        uploadStatus.textContent = `Upload failed: ${error.message}`;
+    } finally {
+        isUploading = false;
+        uploadButton.disabled = false;
+        browseButton.disabled = false;
+    }
+}
 
         // Read the PDF
         reader.readAsDataURL(file);
@@ -142,7 +161,7 @@ async function handleFiles(files) {
     // Go through each selected file
     for (const file of files) {
 
-        try {
+//         try {
 
             // Do not upload files that are not valid PDFs
             if (!(await isValidPDF(file))) {
@@ -161,9 +180,9 @@ async function handleFiles(files) {
             // Upload the valid PDF
             await uploadPDF(file);
 
-        } catch (error) {
+//         } catch (error) {
 
-            console.error(error);
+//             console.error(error);
 
             uploadStatus.textContent =
                 `Upload failed: ${file.name}: ${error.message}`;
@@ -195,8 +214,8 @@ async function uploadPDF(file) {
 
     uploadStatus.textContent = `Saving ${file.name}...`;
 
-    // Convert the PDF into Base64
-    const base64Data = await convertToBase64(file);
+//     // Convert the PDF into Base64
+//     const base64Data = await convertToBase64(file);
 
     // Get the logged-in user's PDF collection
     const pdfCollection = collection(
@@ -227,7 +246,7 @@ async function uploadPDF(file) {
 // Get all PDFs from the current user's Firestore collection
 async function loadDocuments() {
 
-    if (!currentUser) return;
+//     if (!currentUser) return;
 
     const pdfCollection = collection(
         db,
@@ -242,7 +261,7 @@ async function loadDocuments() {
         orderBy("createdAt", "desc")
     );
 
-    const snapshot = await getDocs(pdfQuery);
+//     const snapshot = await getDocs(pdfQuery);
 
     // Turn the Firestore results into a normal JavaScript array
     documents = snapshot.docs.map((document) => ({
@@ -274,21 +293,21 @@ function displayDocuments(files) {
     // Create a row for each PDF
     files.forEach((file) => {
 
-        const row = document.createElement("div");
-        row.className = "file-row";
+//         const row = document.createElement("div");
+//         row.className = "file-row";
 
         // Create the file name and PDF icon
         const name = document.createElement("div");
         name.className = "file-name";
 
-        const icon = document.createElement("span");
-        icon.className = "pdf-icon";
-        icon.textContent = "▤";
+//         const icon = document.createElement("span");
+//         icon.className = "pdf-icon";
+//         icon.textContent = "▤";
 
-        const fileName = document.createElement("span");
-        fileName.textContent = file.fileName;
+//         const fileName = document.createElement("span");
+//         fileName.textContent = file.fileName;
 
-        name.append(icon, fileName);
+//         name.append(icon, fileName);
 
         // Show the file size
         const size = document.createElement("span");
@@ -297,9 +316,9 @@ function displayDocuments(files) {
         // Show the upload date
         const date = document.createElement("span");
 
-        date.textContent = file.createdAt
-            ? file.createdAt.toDate().toLocaleDateString()
-            : "Just uploaded";
+//         date.textContent = file.createdAt
+//             ? file.createdAt.toDate().toLocaleDateString()
+//             : "Just uploaded";
 
         // Create the area for the buttons
         const actions = document.createElement("div");
@@ -309,35 +328,35 @@ function displayDocuments(files) {
         const preview = document.createElement("button");
         preview.textContent = "Preview";
 
-        preview.addEventListener("click", () => {
-            previewPDF(file);
-        });
+//         preview.addEventListener("click", () => {
+//             previewPDF(file);
+//         });
 
         // Download button
         const download = document.createElement("button");
         download.textContent = "Download";
 
-        download.addEventListener("click", () => {
-            downloadPDF(file);
-        });
+//         download.addEventListener("click", () => {
+//             downloadPDF(file);
+//         });
 
         // Star button
         const star = document.createElement("button");
 
         star.textContent = file.isStarred ? "★ Starred" : "☆ Star";
 
-        star.addEventListener("click", () => {
-            toggleStar(file);
-        });
+//         star.addEventListener("click", () => {
+//             toggleStar(file);
+//         });
 
         // Delete button
         const deleteButton = document.createElement("button");
         deleteButton.className = "delete-button";
         deleteButton.textContent = "Delete";
 
-        deleteButton.addEventListener("click", () => {
-            deletePDF(file);
-        });
+//         deleteButton.addEventListener("click", () => {
+//             deletePDF(file);
+//         });
 
         // Add all buttons to the actions area
         actions.append(preview, download, star, deleteButton);
@@ -375,7 +394,7 @@ function previewPDF(file) {
     const blob = createPDFBlob(file);
     const url = URL.createObjectURL(blob);
 
-    const previewWindow = window.open(url, "_blank");
+//     const previewWindow = window.open(url, "_blank");
 
     // Check if the browser blocked the new tab
     if (!previewWindow) {
@@ -400,8 +419,8 @@ function downloadPDF(file) {
     // Create a temporary download link
     const link = document.createElement("a");
 
-    link.href = url;
-    link.download = file.fileName;
+//     link.href = url;
+//     link.download = file.fileName;
 
     // Click the link to start the download
     document.body.appendChild(link);
@@ -416,7 +435,7 @@ function downloadPDF(file) {
 // Star or unstar a PDF
 async function toggleStar(file) {
 
-    try {
+//     try {
 
         // Find the PDF in Firestore and change its starred status
         await updateDoc(
@@ -429,7 +448,7 @@ async function toggleStar(file) {
         // Refresh the list to show the change
         await loadDocuments();
 
-    } catch (error) {
+//     } catch (error) {
 
         console.error(error);
         uploadStatus.textContent = "Could not update starred status.";
@@ -445,9 +464,9 @@ async function deletePDF(file) {
         `Are you sure you want to delete ${file.fileName}?`
     );
 
-    if (!confirmed) return;
+//     if (!confirmed) return;
 
-    try {
+//     try {
 
         // Delete the selected PDF from Firestore
         await deleteDoc(
@@ -459,7 +478,7 @@ async function deletePDF(file) {
         // Refresh the list
         await loadDocuments();
 
-    } catch (error) {
+//     } catch (error) {
 
         console.error(error);
         uploadStatus.textContent = "Could not delete document.";
@@ -476,7 +495,7 @@ searchInput.addEventListener("input", () => {
 // Choose which documents should be displayed
 function getFilteredDocuments() {
 
-    let filteredFiles = documents;
+//     let filteredFiles = documents;
 
     // Show only the five newest documents
     if (currentView === "recent") {
@@ -501,16 +520,16 @@ function getFilteredDocuments() {
 // Handle the sidebar links
 document.querySelectorAll(".sidebar nav a").forEach((link) => {
 
-    link.addEventListener("click", (event) => {
+//     link.addEventListener("click", (event) => {
 
-        const href = link.getAttribute("href");
+//         const href = link.getAttribute("href");
 
         // Only handle these three sidebar links
         if (!["#", "#recent", "#files"].includes(href)) {
             return;
         }
 
-        event.preventDefault();
+//         event.preventDefault();
 
         // Choose the correct view
         if (href === "#") {
@@ -535,13 +554,13 @@ document.querySelectorAll(".sidebar nav a").forEach((link) => {
             starred: "Starred"
         };
 
-        document.querySelector(".top-section h1").textContent =
-            titles[currentView];
+//         document.querySelector(".top-section h1").textContent =
+//             titles[currentView];
 
-        document.querySelector(".section-heading h2").textContent =
-            currentView === "documents"
-                ? "All Documents"
-                : titles[currentView];
+//         document.querySelector(".section-heading h2").textContent =
+//             currentView === "documents"
+//                 ? "All Documents"
+//                 : titles[currentView];
 
         // Show the documents for the selected view
         displayDocuments(getFilteredDocuments());
@@ -585,7 +604,36 @@ function formatFileSize(bytes) {
 
 // Go to the Quiz page
 goToQuizButton.addEventListener("click", () => {
-    window.location.href = "/template.html";
+    if (!currentUploadId) {
+        return;
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const roomCode = params.get("roomCode");
+
+    if (!roomCode) {
+        uploadStatus.textContent =
+            "Room information is missing. Open Upload from Generation Settings.";
+        return;
+    }
+
+    const storageKey = `quizGeneration:${roomCode}`;
+
+    let draft = {};
+
+    try {
+        draft = JSON.parse(sessionStorage.getItem(storageKey) || "{}");
+    } catch {
+        draft = {};
+    }
+
+    draft.uploadId = currentUploadId;
+    draft.fileName = pdfInput.dataset.uploadedFileName || "";
+
+    sessionStorage.setItem(storageKey, JSON.stringify(draft));
+
+    window.location.href =
+        `/gen-settings.html?roomCode=${encodeURIComponent(roomCode)}`;
 });
 
 

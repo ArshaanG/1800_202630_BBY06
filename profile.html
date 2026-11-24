@@ -11,7 +11,7 @@
     <!-- Web Components for shared navbar and footer layout -->
     <script type="module" src="/src/components/site-navbar.js"></script>
     <script type="module" src="/src/components/site-footer.js"></script>
-    <link rel="stylesheet" href="profile.css" />
+    <link rel="stylesheet" href="profile.css">
   </head>
 
   <body>
@@ -23,64 +23,45 @@
     <site-navbar></site-navbar>
 
     <main class="profile-container">
-      <!-- Page title and description -->
       <div class="page-heading">
         <h1>My Profile</h1>
         <p>Manage your personal information and account settings.</p>
       </div>
-
-      <!-- Main profile card -->
       <section class="profile-card">
-        <!-- PROFILE PICTURE SECTION -->
+        <!-- Profile Picture -->
         <div class="profile-header">
           <div class="profile-picture-container">
-            <!-- Current profile picture -->
             <img
               id="profileImage"
               src="/Public/images/default-avatar.jpg"
               alt="Profile Picture"
             />
-
-            <!-- Camera icon opens the image upload -->
             <label for="imageUpload" class="camera-button">
               <i class="bi bi-camera-fill"></i>
             </label>
-
-            <!-- Allows the user to select an image -->
             <input type="file" id="imageUpload" accept="image/*" hidden />
           </div>
-
-          <!-- User's name and email -->
           <h2 id="displayName">Your Name</h2>
           <p id="displayEmail">your@email.com</p>
-
-          <!-- Buttons for changing or removing the picture -->
           <div class="picture-actions">
             <label for="imageUpload" class="upload-button">
               Change Photo
             </label>
-
             <button type="button" id="removePhoto" class="remove-button">
               Remove
             </button>
           </div>
         </div>
-
         <hr />
-
-        <!-- PERSONAL INFORMATION SECTION -->
+        <!-- Personal Information -->
         <div class="section-heading">
           <h3>Personal Information</h3>
           <p>Update your account details.</p>
         </div>
-
-        <!-- Form for editing profile information -->
         <form id="profileForm">
           <div class="form-grid">
-            <!-- Full name input -->
             <div class="form-group">
               <label for="fullName">Full Name</label>
-
               <input
                 type="text"
                 id="fullName"
@@ -89,11 +70,8 @@
                 disabled
               />
             </div>
-
-            <!-- Username input -->
             <div class="form-group">
               <label for="username">Username</label>
-
               <input
                 type="text"
                 id="username"
@@ -101,11 +79,8 @@
                 disabled
               />
             </div>
-
-            <!-- Email input -->
             <div class="form-group">
               <label for="email">Email Address</label>
-
               <input
                 type="email"
                 id="email"
@@ -113,11 +88,8 @@
                 disabled
               />
             </div>
-
-            <!-- Phone number input -->
             <div class="form-group">
               <label for="phone">Phone Number</label>
-
               <input
                 type="tel"
                 id="phone"
@@ -126,15 +98,10 @@
               />
             </div>
           </div>
-
-          <!-- Profile editing buttons -->
           <div class="form-actions">
-            <!-- Opens editing mode -->
             <button type="button" id="editButton" class="edit-button">
               <i class="bi bi-pencil"></i> Edit Profile
             </button>
-
-            <!-- Cancels changes -->
             <button
               type="button"
               id="cancelButton"
@@ -143,39 +110,27 @@
             >
               Cancel
             </button>
-
-            <!-- Saves changes -->
             <button type="submit" id="saveButton" class="save-button" hidden>
               Save Changes
             </button>
           </div>
-
-          <!-- Displays success or error messages -->
           <p id="profileMessage" role="status"></p>
         </form>
-
         <hr />
-
-        <!-- ACCOUNT SETTINGS SECTION -->
+        <!-- Account Settings -->
         <div class="section-heading">
           <h3>Account Settings</h3>
           <p>Manage your account preferences.</p>
         </div>
-
         <div class="settings-list">
-          <!-- Opens the change password section -->
           <button type="button" class="setting-item" id="passwordButton">
             <span> <i class="bi bi-lock"></i> Change Password </span>
-
             <i class="bi bi-chevron-right"></i>
           </button>
-
-          <!-- Password form (hidden until opened) -->
           <div id="passwordPanel" hidden>
             <form id="passwordForm">
               <div class="form-group">
-                <label for="newPassword">New Password</label>
-
+                <label for="newPassword"> New Password </label>
                 <input
                   type="password"
                   id="newPassword"
@@ -184,18 +139,26 @@
                   required
                 />
               </div>
-
-              <!-- Submits the password form -->
               <button type="submit" class="save-button">Update Password</button>
-
-              <!-- Displays password form messages -->
               <p id="passwordMessage" role="status"></p>
             </form>
           </div>
+          <button type="button" class="setting-item" id="privacyButton">
+            <span> <i class="bi bi-shield-check"></i> Privacy Settings </span>
+            <i class="bi bi-chevron-right"></i>
+          </button>
+          <div id="privacyPanel" class="privacy-panel" hidden>
+            <p>
+              Your QuizRace profile information is displayed here for your
+              account management.
+            </p>
+            <p>
+              Privacy controls will be connected when backend functionality is
+              implemented.
+            </p>
+          </div>
         </div>
       </section>
-
-      <!-- Link to return to the home page -->
       <div class="back-home">
         <a href="/main.html"> <i class="bi bi-arrow-left"></i> Back to Home </a>
       </div>

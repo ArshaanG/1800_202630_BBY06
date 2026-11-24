@@ -29,49 +29,14 @@
 
     <h1 class="text-center mb-2">Final Results</h1>
 
-    <p class="text-center text-body-secondary mb-4">
-      Player One wins the race!
-    </p>
+    <p id="results-status" class="text-center text-body-secondary mb-4">Waiting for everyone to finish...</p>
 
-    <ol class="list-group list-group-numbered">
+    <ol id="results-list" class="list-group list-group-numbered" hidden></ol>
 
-      <li class="list-group-item list-group-item-warning
-               d-flex align-items-center gap-3 py-3">
-        <div class="flex-grow-1">
-          <strong>Player One</strong>
-          <span class="badge text-bg-dark ms-2">Winner</span>
-        </div>
-        <span class="badge text-bg-primary rounded-pill">
-          1,000 pts
-        </span>
-      </li>
-
-      <li class="list-group-item
-               d-flex align-items-center gap-3 py-3">
-        <div class="flex-grow-1">
-          <strong>Player Two</strong>
-        </div>
-        <span class="badge text-bg-primary rounded-pill">
-          800 pts
-        </span>
-      </li>
-
-      <li class="list-group-item
-               d-flex align-items-center gap-3 py-3">
-        <div class="flex-grow-1">
-          <strong>Player Three</strong>
-        </div>
-        <span class="badge text-bg-primary rounded-pill">
-          600 pts
-        </span>
-      </li>
-
-    </ol>
-
-    <div class="text-center mt-4">
-      <button type="button" class="btn btn-primary btn-lg px-5 py-3 fw-bold">
+    <div id="results-actions" class="text-center mt-4" hidden>
+      <a href="/rooms.html" class="btn btn-primary btn-lg px-5 py-3 fw-bold">
         Next
-      </button>
+      </a>
     </div>
 
   </main>
@@ -85,7 +50,7 @@
   <!---------------------------------------------->
 
   <script type="module" src="/src/app.js"></script>
-  <script type="module" src="/src/main.js"></script>
+  <script type="module" src="/src/quiz-results.js"></script>
 </body>
 
 </html>

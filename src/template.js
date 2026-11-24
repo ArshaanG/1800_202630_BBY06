@@ -224,7 +224,7 @@ function showResults() {
   const user = auth.currentUser;
   Promise.all([
     updateDoc(doc(db, "rooms", quizRoomCode),{
-      [`players.${myPlayerId}.finished`]: true
+      [`players.${playerId}.finished`]: true
     }),
     setDoc(doc(db, "scores", user.uid), {
       name: user.displayName || user.email.split("@")[0],

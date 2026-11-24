@@ -96,10 +96,20 @@ function updatePlayerList(code) {
 async function createRoom() {
     currentCode = await generateRoomCode();
     sessionStorage.setItem("currentRoomCode", currentCode);
+
+    let quiz = null;
+    const pendingId = sessionStorage.getItem("pendingQuizId");
+    if (pendingId && auth.currentUser) {
+        const qSnap = await getDoc(doc(db, "users", auth.currentUser.uid, "quizzes", pendingId));
+        if (qSnap.exists()) quiz = qSnap.data().quiz;
+        sessionStorage.removeItem("pendingQuizId");
+    }
+
     await setDoc(doc(db, "rooms", currentCode), {
         createdAt: serverTimestamp(),
         hostId: playerId,
-        players: { [playerId]: { name: getName(), ready: false } }
+        players: { [playerId]: { name: getName(), ready: false } },
+        ...(quiz && { quiz })
     });
     document.getElementById('room-code').textContent = currentCode; 
     updatePlayerList(currentCode);

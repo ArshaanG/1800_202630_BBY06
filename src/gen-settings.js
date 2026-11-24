@@ -2,8 +2,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "/dark-mode.css";
-import { db } from "./firebaseConfig.js";
-import { doc, updateDoc } from "firebase/firestore";
+import { db, auth } from "./firebaseConfig.js";
+import { doc, updateDoc, addDoc, collection, serverTimestamp } from "firebase/firestore";
 
 const params = new URLSearchParams(window.location.search);
 const roomCode = params.get("roomCode");
@@ -106,6 +106,19 @@ generateButton.addEventListener("click", async () => {
             quiz,
             quizStatus: "ready"
         });
+
+        try {
+            const user = auth.currentUser;
+            if (user) {
+                await addDoc(collection(db, "users", user.uid, "quizzes"), {
+                    title: `${courseName.value.trim() || "Quiz"} - ${topic.value || "General"}`,
+                    quiz,
+                    createdAt: serverTimestamp()
+                });
+            }
+        } catch (saveError) {
+            console.error("Couldn't save quiz", saveError);
+        }
 
         window.location.href =
             `/template.html?roomCode=${encodeURIComponent(roomCode)}`;

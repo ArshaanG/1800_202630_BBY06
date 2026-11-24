@@ -2,8 +2,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "/dark-mode.css";
-import { auth, db } from "./firebaseConfig.js";
 
+import { auth, db } from "./firebaseConfig.js";
 import { onAuthStateChanged } from "firebase/auth";
 
 import {
@@ -19,7 +19,7 @@ import {
 } from "firebase/firestore";
 
 
-// HTML elements
+// Get the HTML elements we need
 const pdfInput = document.getElementById("pdfInput");
 const uploadButton = document.getElementById("uploadButton");
 const browseButton = document.getElementById("browseButton");
@@ -34,35 +34,36 @@ const uploadedFileName = document.getElementById("uploadedFileName");
 const goToQuizButton = document.getElementById("goToQuizButton");
 const backToDocumentsButton = document.getElementById("backToDocumentsButton");
 
+// Store the current user and loaded documents
 let currentUser = null;
 // let documents = [];
 // let currentView = "documents";
 
-const MAX_FILE_SIZE = 10 * 1024 * 1024;
-
-let currentUploadId = null;
-let isUploading = false;
+// Maximum PDF size is 500 KB
+const MAX_FILE_SIZE = 500 * 1024;
 
 
-// Check login
+// Check if the user is logged in
 onAuthStateChanged(auth, async (user) => {
 
+    // If nobody is logged in, go to the login page
     if (!user) {
         window.location.href = "/login.html";
         return;
     }
 
+    // Save the logged-in user
     currentUser = user;
 
-    userName.textContent =
-        user.displayName || user.email;
+    // Show the user's name or email
+    userName.textContent = user.displayName || user.email;
 
-    //await loadDocuments();
-
+    // Load the user's PDFs
+    await loadDocuments();
 });
 
 
-// Open file picker
+// Open the file picker when either button is clicked
 uploadButton.addEventListener("click", () => {
     pdfInput.click();
 });
@@ -72,28 +73,28 @@ browseButton.addEventListener("click", () => {
 });
 
 
-// Detect when the user selects PDF files
+// Run when the user selects files
 pdfInput.addEventListener("change", async (event) => {
 
     const selectedFiles = event.target.files;
 
+    // Stop if no files were selected
     if (!selectedFiles || selectedFiles.length === 0) {
         return;
     }
 
-    // Upload the selected files
+    // Upload the selected PDFs
     await handleFiles(selectedFiles);
 
-    // Reset input so the same PDF can be selected again
+    // Clear the input so the same file can be selected again
     pdfInput.value = "";
-
 });
 
 
-
-// Validate PDF
+// Check if the selected file is a real PDF
 async function isValidPDF(file) {
 
+    // Check the file type and file name
     if (
         file.type !== "application/pdf" ||
         !file.name.toLowerCase().endsWith(".pdf")
@@ -101,6 +102,7 @@ async function isValidPDF(file) {
         return false;
     }
 
+    // A real PDF starts with %PDF-
     const header = await file.slice(0, 5).text();
 
     return header === "%PDF-";
@@ -115,16 +117,8 @@ async function handleFiles(files) {
         return;
     }
 
-    const file = files[0];
-
-    isUploading = true;
-    uploadButton.disabled = true;
-    browseButton.disabled = true;
-
-    try {
-        if (file.size > MAX_FILE_SIZE) {
-            throw new Error("Please upload a PDF smaller than 10 MB.");
-        }
+// Convert a PDF into Base64 so it can be saved in Firestore
+function convertToBase64(file) {
 
         if (!(await isValidPDF(file))) {
             throw new Error("Only valid PDF files are allowed.");
@@ -141,202 +135,170 @@ async function handleFiles(files) {
     }
 }
 
-async function uploadPDF(file) {
-    currentUploadId = null;
-    uploadStatus.textContent = `Uploading ${file.name}...`;
+        // Read the PDF
+        reader.readAsDataURL(file);
 
-    const formData = new FormData();
-    formData.append("pdf", file);
+        // Run when the file has been read
+        reader.onload = () => {
+            const base64Data = reader.result.split(",")[1];
+            resolve(base64Data);
+        };
 
-    const response = await fetch("/api/uploads", {
-        method: "POST",
-        body: formData
+        // Run if the file cannot be read
+        reader.onerror = () => {
+            reject(new Error("Could not read PDF."));
+        };
     });
-
-    const result = await response.json();
-
-    if (!response.ok) {
-        throw new Error(result.error || "The upload failed.");
-    }
-
-    if (!result.uploadId) {
-        throw new Error("The server did not return an upload ID.");
-    }
-
-    currentUploadId = result.uploadId;
-    pdfInput.dataset.uploadedFileName = file.name;
-    uploadStatus.textContent = `${file.name} uploaded successfully!`;
-
-    showUploadDone(file.name);
 }
 
 
-// Convert PDF into Base64
-// function convertToBase64(file) {
+// Check and upload multiple selected files
+async function handleFiles(files) {
 
-//     return new Promise((resolve, reject) => {
+    // Make sure a user is logged in
+    if (!currentUser) return;
 
-//         const reader = new FileReader();
-
-//         reader.readAsDataURL(file);
-
-//         reader.onload = () => {
-
-//             const base64Data = reader.result.split(",")[1];
-
-//             resolve(base64Data);
-
-//         };
-
-//         reader.onerror = () => {
-//             reject(new Error("Could not read PDF."));
-//         };
-
-//     });
-
-// }
-
-
-// Handle multiple files
-// async function handleFiles(files) {
-
-//     if (!currentUser) return;
-
-//     for (const file of files) {
+    // Go through each selected file
+    for (const file of files) {
 
 //         try {
 
-//             if (!(await isValidPDF(file))) {
+            // Do not upload files that are not valid PDFs
+            if (!(await isValidPDF(file))) {
+                uploadStatus.textContent =
+                    `${file.name}: Only valid PDF files are allowed.`;
+                continue;
+            }
 
-//                 uploadStatus.textContent =
-//                     `${file.name}: Only valid PDF files are allowed.`;
+            // Do not upload files larger than 500 KB
+            if (file.size > MAX_FILE_SIZE) {
+                uploadStatus.textContent =
+                    `${file.name}: File exceeds the 500 KB limit.`;
+                continue;
+            }
 
-//                 continue;
-//             }
-
-//             if (file.size > MAX_FILE_SIZE) {
-
-//                 uploadStatus.textContent =
-//                     `${file.name}: File exceeds the 500 KB limit.`;
-
-//                 continue;
-//             }
-
-//             await uploadPDF(file);
+            // Upload the valid PDF
+            await uploadPDF(file);
 
 //         } catch (error) {
 
 //             console.error(error);
 
-//             uploadStatus.textContent =
-//                 `Upload failed: ${file.name}: ${error.message}`;
+            uploadStatus.textContent =
+                `Upload failed: ${file.name}: ${error.message}`;
+        }
+    }
 
-//         }
-
-//     }
-
-//     await loadDocuments();
-
-// }
-
-function showUploadDone(fileName) {
-
-    // Hide the upload dashboard
-    document.querySelector(".dashboard").hidden = true;
-
-    // Hide the footer
-    document.querySelector("site-footer").hidden = true;
-
-    // Show the success section
-    uploadDone.hidden = false;
-
-    // Display uploaded file name
-    uploadedFileName.textContent = `Uploaded file: ${fileName}`;
-
+    // Refresh the document list after uploading
+    await loadDocuments();
 }
 
-// Upload PDF directly into Firestore
-// async function uploadPDF(file) {
 
-//     uploadStatus.textContent =
-//         `Saving ${file.name}...`;
+// Show the upload success screen
+function showUploadDone(fileName) {
+
+    // Hide the document dashboard and footer
+    document.querySelector(".dashboard").hidden = true;
+    document.querySelector("site-footer").hidden = true;
+
+    // Show the success message
+    uploadDone.hidden = false;
+
+    // Show the uploaded file name
+    uploadedFileName.textContent = `Uploaded file: ${fileName}`;
+}
+
+
+// Save the PDF in Firestore
+async function uploadPDF(file) {
+
+    uploadStatus.textContent = `Saving ${file.name}...`;
 
 //     // Convert the PDF into Base64
 //     const base64Data = await convertToBase64(file);
 
-//     // Save PDF and information in Firestore
-//     await addDoc(
-//         collection(db, "users", currentUser.uid, "pdfs"),
-//         {
-//             fileName: file.name,
-//             fileSize: file.size,
-//             fileType: "application/pdf",
+    // Get the logged-in user's PDF collection
+    const pdfCollection = collection(
+        db,
+        "users",
+        currentUser.uid,
+        "pdfs"
+    );
 
-//             fileData: base64Data,
+    // Save the PDF and its information
+    await addDoc(pdfCollection, {
+        fileName: file.name,
+        fileSize: file.size,
+        fileType: "application/pdf",
+        fileData: base64Data,
+        uploadedBy: currentUser.uid,
+        createdAt: serverTimestamp(),
+        isStarred: false
+    });
 
-//             uploadedBy: currentUser.uid,
-//             createdAt: serverTimestamp(),
+    uploadStatus.textContent = `${file.name} saved successfully!`;
 
-//             isStarred: false
-//         }
-//     );
-
-//     uploadStatus.textContent =
-//     `${file.name} saved successfully!`;
-
-// showUploadDone(file.name);
-
-// }
+    // Show the success screen
+    showUploadDone(file.name);
+}
 
 
-// Load documents from Firestore
-// async function loadDocuments() {
+// Get all PDFs from the current user's Firestore collection
+async function loadDocuments() {
 
 //     if (!currentUser) return;
 
-//     const pdfCollection =
-//         collection(db, "users", currentUser.uid, "pdfs");
+    const pdfCollection = collection(
+        db,
+        "users",
+        currentUser.uid,
+        "pdfs"
+    );
 
-//     const pdfQuery = query(
-//         pdfCollection,
-//         orderBy("createdAt", "desc")
-//     );
+    // Sort documents by upload date, newest first
+    const pdfQuery = query(
+        pdfCollection,
+        orderBy("createdAt", "desc")
+    );
 
 //     const snapshot = await getDocs(pdfQuery);
 
-//     documents = snapshot.docs.map((document) => ({
-//         id: document.id,
-//         ...document.data()
-//     }));
+    // Turn the Firestore results into a normal JavaScript array
+    documents = snapshot.docs.map((document) => ({
+        id: document.id,
+        ...document.data()
+    }));
 
-//     displayDocuments(documents);
+    // Display the documents on the page
+    displayDocuments(documents);
+}
 
-// }
 
+// Show the PDF documents on the page
+function displayDocuments(files) {
 
-// Display documents
-// function displayDocuments(files) {
+    // Clear the old document list
+    fileList.replaceChildren();
 
-//     fileList.replaceChildren();
+    // Update the number of documents
+    fileCount.textContent = `${files.length} documents`;
 
-//     fileCount.textContent =
-//         `${files.length} documents`;
+    // Show a message if there are no documents
+    if (files.length === 0) {
+        fileList.innerHTML =
+            '<p class="empty-message">No PDF documents found.</p>';
+        return;
+    }
 
-//     if (files.length === 0) {
-
-//         fileList.innerHTML =
-//             '<p class="empty-message">No PDF documents found.</p>';
-
-//         return;
-//     }
-
-//     files.forEach((file) => {
+    // Create a row for each PDF
+    files.forEach((file) => {
 
 //         const row = document.createElement("div");
 //         row.className = "file-row";
 
-//         const name = document.createElement("div");
-//         name.className = "file-name";
+        // Create the file name and PDF icon
+        const name = document.createElement("div");
+        name.className = "file-name";
 
 //         const icon = document.createElement("span");
 //         icon.className = "pdf-icon";
@@ -347,245 +309,250 @@ function showUploadDone(fileName) {
 
 //         name.append(icon, fileName);
 
-//         const size = document.createElement("span");
-//         size.textContent = formatFileSize(file.fileSize);
+        // Show the file size
+        const size = document.createElement("span");
+        size.textContent = formatFileSize(file.fileSize);
 
-//         const date = document.createElement("span");
+        // Show the upload date
+        const date = document.createElement("span");
 
 //         date.textContent = file.createdAt
 //             ? file.createdAt.toDate().toLocaleDateString()
 //             : "Just uploaded";
 
-//         const actions = document.createElement("div");
-//         actions.className = "file-actions";
+        // Create the area for the buttons
+        const actions = document.createElement("div");
+        actions.className = "file-actions";
 
-//         // Preview
-//         const preview = document.createElement("button");
-//         preview.textContent = "Preview";
+        // Preview button
+        const preview = document.createElement("button");
+        preview.textContent = "Preview";
 
 //         preview.addEventListener("click", () => {
 //             previewPDF(file);
 //         });
 
-//         // Download
-//         const download = document.createElement("button");
-//         download.textContent = "Download";
+        // Download button
+        const download = document.createElement("button");
+        download.textContent = "Download";
 
 //         download.addEventListener("click", () => {
 //             downloadPDF(file);
 //         });
 
-//         // Star
-//         const star = document.createElement("button");
+        // Star button
+        const star = document.createElement("button");
 
-//         star.textContent = file.isStarred
-//             ? "★ Starred"
-//             : "☆ Star";
+        star.textContent = file.isStarred ? "★ Starred" : "☆ Star";
 
 //         star.addEventListener("click", () => {
 //             toggleStar(file);
 //         });
 
-//         // Delete
-//         const deleteButton = document.createElement("button");
-//         deleteButton.className = "delete-button";
-//         deleteButton.textContent = "Delete";
+        // Delete button
+        const deleteButton = document.createElement("button");
+        deleteButton.className = "delete-button";
+        deleteButton.textContent = "Delete";
 
 //         deleteButton.addEventListener("click", () => {
 //             deletePDF(file);
 //         });
 
-//         actions.append(preview, download, star, deleteButton);
+        // Add all buttons to the actions area
+        actions.append(preview, download, star, deleteButton);
 
-//         row.append(name, size, date, actions);
+        // Add everything to the document row
+        row.append(name, size, date, actions);
 
-//         fileList.appendChild(row);
-
-//     });
-
-// }
-
-
-// Convert Base64 back into a PDF Blob
-// function createPDFBlob(file) {
-
-//     const binary = atob(file.fileData);
-
-//     const bytes = new Uint8Array(binary.length);
-
-//     for (let i = 0; i < binary.length; i++) {
-//         bytes[i] = binary.charCodeAt(i);
-//     }
-
-//     return new Blob([bytes], {
-//         type: "application/pdf"
-//     });
-
-// }
+        // Add the row to the page
+        fileList.appendChild(row);
+    });
+}
 
 
-// Preview PDF
-// function previewPDF(file) {
+// Convert the saved Base64 data back into a PDF
+function createPDFBlob(file) {
 
-//     const blob = createPDFBlob(file);
+    const binary = atob(file.fileData);
+    const bytes = new Uint8Array(binary.length);
 
-//     const url = URL.createObjectURL(blob);
+    // Convert each character into a byte
+    for (let i = 0; i < binary.length; i++) {
+        bytes[i] = binary.charCodeAt(i);
+    }
+
+    // Create a PDF Blob
+    return new Blob([bytes], {
+        type: "application/pdf"
+    });
+}
+
+
+// Open a PDF in a new browser tab
+function previewPDF(file) {
+
+    const blob = createPDFBlob(file);
+    const url = URL.createObjectURL(blob);
 
 //     const previewWindow = window.open(url, "_blank");
 
-//     if (!previewWindow) {
-//         URL.revokeObjectURL(url);
-//         alert("Please allow pop-ups to preview PDFs.");
-//         return;
-//     }
+    // Check if the browser blocked the new tab
+    if (!previewWindow) {
+        URL.revokeObjectURL(url);
+        alert("Please allow pop-ups to preview PDFs.");
+        return;
+    }
 
-//     setTimeout(() => {
-//         URL.revokeObjectURL(url);
-//     }, 60000);
+    // Free the temporary URL after 60 seconds
+    setTimeout(() => {
+        URL.revokeObjectURL(url);
+    }, 60000);
+}
 
-// }
 
+// Download a PDF to the computer
+function downloadPDF(file) {
 
-// Download PDF
-// function downloadPDF(file) {
+    const blob = createPDFBlob(file);
+    const url = URL.createObjectURL(blob);
 
-//     const blob = createPDFBlob(file);
-
-//     const url = URL.createObjectURL(blob);
-
-//     const link = document.createElement("a");
+    // Create a temporary download link
+    const link = document.createElement("a");
 
 //     link.href = url;
 //     link.download = file.fileName;
 
-//     document.body.appendChild(link);
-//     link.click();
-//     link.remove();
+    // Click the link to start the download
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
 
-//     URL.revokeObjectURL(url);
+    // Remove the temporary URL
+    URL.revokeObjectURL(url);
+}
 
-// }
 
-
-// Star or unstar PDF
-// async function toggleStar(file) {
+// Star or unstar a PDF
+async function toggleStar(file) {
 
 //     try {
 
-//         await updateDoc(
-//             doc(db, "users", currentUser.uid, "pdfs", file.id),
-//             {
-//                 isStarred: !file.isStarred
-//             }
-//         );
+        // Find the PDF in Firestore and change its starred status
+        await updateDoc(
+            doc(db, "users", currentUser.uid, "pdfs", file.id),
+            {
+                isStarred: !file.isStarred
+            }
+        );
 
-//         await loadDocuments();
+        // Refresh the list to show the change
+        await loadDocuments();
 
 //     } catch (error) {
 
-//         console.error(error);
-//         uploadStatus.textContent = "Could not update starred status.";
-
-//     }
-
-// }
+        console.error(error);
+        uploadStatus.textContent = "Could not update starred status.";
+    }
+}
 
 
-// Delete PDF
-// async function deletePDF(file) {
+// Delete a PDF
+async function deletePDF(file) {
 
-//     const confirmed = confirm(
-//         `Are you sure you want to delete ${file.fileName}?`
-//     );
+    // Ask the user before deleting
+    const confirmed = confirm(
+        `Are you sure you want to delete ${file.fileName}?`
+    );
 
 //     if (!confirmed) return;
 
 //     try {
 
-//         await deleteDoc(
-//             doc(db, "users", currentUser.uid, "pdfs", file.id)
-//         );
+        // Delete the selected PDF from Firestore
+        await deleteDoc(
+            doc(db, "users", currentUser.uid, "pdfs", file.id)
+        );
 
-//         uploadStatus.textContent =
-//             "Document deleted successfully.";
+        uploadStatus.textContent = "Document deleted successfully.";
 
-//         await loadDocuments();
+        // Refresh the list
+        await loadDocuments();
 
 //     } catch (error) {
 
-//         console.error(error);
-
-//         uploadStatus.textContent =
-//             "Could not delete document.";
-
-//     }
-
-// }
+        console.error(error);
+        uploadStatus.textContent = "Could not delete document.";
+    }
+}
 
 
-// Search documents
-// searchInput.addEventListener("input", () => {
-
-//     displayDocuments(getFilteredDocuments());
-
-// });
+// Update the document list when the user searches
+searchInput.addEventListener("input", () => {
+    displayDocuments(getFilteredDocuments());
+});
 
 
-// Filter documents for sidebar
-// function getFilteredDocuments() {
+// Choose which documents should be displayed
+function getFilteredDocuments() {
 
 //     let filteredFiles = documents;
 
-//     if (currentView === "recent") {
-//         filteredFiles = documents.slice(0, 5);
-//     }
+    // Show only the five newest documents
+    if (currentView === "recent") {
+        filteredFiles = documents.slice(0, 5);
+    }
 
-//     if (currentView === "starred") {
-//         filteredFiles = documents.filter(
-//             (file) => file.isStarred
-//         );
-//     }
+    // Show only starred documents
+    if (currentView === "starred") {
+        filteredFiles = documents.filter((file) => file.isStarred);
+    }
 
-//     const searchText = searchInput.value.toLowerCase();
+    // Get the search text and make it lowercase
+    const searchText = searchInput.value.toLowerCase();
 
-//     return filteredFiles.filter((file) =>
-//         file.fileName.toLowerCase().includes(searchText)
-//     );
+    // Only return file names that contain the search text
+    return filteredFiles.filter((file) =>
+        file.fileName.toLowerCase().includes(searchText)
+    );
+}
 
-// }
 
-
-// Sidebar navigation
-// document.querySelectorAll(".sidebar nav a").forEach((link) => {
+// Handle the sidebar links
+document.querySelectorAll(".sidebar nav a").forEach((link) => {
 
 //     link.addEventListener("click", (event) => {
 
 //         const href = link.getAttribute("href");
 
-//         if (!["#", "#recent", "#files"].includes(href)) {
-//             return;
-//         }
+        // Only handle these three sidebar links
+        if (!["#", "#recent", "#files"].includes(href)) {
+            return;
+        }
 
 //         event.preventDefault();
 
-//         if (href === "#") {
-//             currentView = "documents";
-//         } else if (href === "#recent") {
-//             currentView = "recent";
-//         } else {
-//             currentView = "starred";
-//         }
+        // Choose the correct view
+        if (href === "#") {
+            currentView = "documents";
+        } else if (href === "#recent") {
+            currentView = "recent";
+        } else {
+            currentView = "starred";
+        }
 
-//         document.querySelectorAll(".sidebar nav a")
-//             .forEach((item) => item.classList.remove("active"));
+        // Remove the active style from all sidebar links
+        document.querySelectorAll(".sidebar nav a")
+            .forEach((item) => item.classList.remove("active"));
 
-//         link.classList.add("active");
+        // Highlight the selected link
+        link.classList.add("active");
 
-//         const titles = {
-//             documents: "My Documents",
-//             recent: "Recent",
-//             starred: "Starred"
-//         };
+        // Set the page titles
+        const titles = {
+            documents: "My Documents",
+            recent: "Recent",
+            starred: "Starred"
+        };
 
 //         document.querySelector(".top-section h1").textContent =
 //             titles[currentView];
@@ -595,42 +562,36 @@ function showUploadDone(fileName) {
 //                 ? "All Documents"
 //                 : titles[currentView];
 
-//         displayDocuments(getFilteredDocuments());
+        // Show the documents for the selected view
+        displayDocuments(getFilteredDocuments());
+    });
+});
 
-//     });
 
-// });
-
-
-// Drag and drop
+// Add a highlight when a file is dragged over the upload area
 dropArea.addEventListener("dragover", (event) => {
-
     event.preventDefault();
-
     dropArea.classList.add("drag-over");
-
 });
 
 
+// Remove the highlight when the file leaves the upload area
 dropArea.addEventListener("dragleave", () => {
-
     dropArea.classList.remove("drag-over");
-
 });
 
 
+// Upload files when they are dropped into the upload area
 dropArea.addEventListener("drop", async (event) => {
 
     event.preventDefault();
-
     dropArea.classList.remove("drag-over");
 
     await handleFiles(event.dataTransfer.files);
-
 });
 
 
-// Format file size
+// Change the file size into KB or MB
 function formatFileSize(bytes) {
 
     if (bytes < 1024 * 1024) {
@@ -638,9 +599,10 @@ function formatFileSize(bytes) {
     }
 
     return (bytes / (1024 * 1024)).toFixed(2) + " MB";
-
 }
-// Go to Quiz page
+
+
+// Go to the Quiz page
 goToQuizButton.addEventListener("click", () => {
     if (!currentUploadId) {
         return;
@@ -674,12 +636,12 @@ goToQuizButton.addEventListener("click", () => {
         `/gen-settings.html?roomCode=${encodeURIComponent(roomCode)}`;
 });
 
-// Return to documents
+
+// Return to the documents page
 backToDocumentsButton.addEventListener("click", () => {
 
     uploadDone.hidden = true;
 
     document.querySelector(".dashboard").hidden = false;
     document.querySelector("site-footer").hidden = false;
-
 });

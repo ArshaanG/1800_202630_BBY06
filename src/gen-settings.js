@@ -121,7 +121,7 @@ generateButton.addEventListener("click", async () => {
         }
 
         window.location.href =
-            `/template.html?roomCode=${encodeURIComponent(roomCode)}`;
+            `/rooms.html?roomCode=${encodeURIComponent(roomCode)}`;
     } catch (error) {
         console.error(error);
         pdfStatus.textContent = error.message;

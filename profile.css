@@ -1,318 +1,534 @@
-
 /* QuizRace Profile Page */
 
+/* Makes sizing easier to control */
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
+/* Basic page settings */
 body {
-    margin: 0;
-    background: #f4f5fa;
-    font-family: Arial, sans-serif;
-    color: #040427;
+  margin: 0;
+  font-family: Arial, sans-serif;
 }
+
+/* =========================================================
+   PROFILE PAGE
+   ========================================================= */
 
 .profile-container {
-    max-width: 900px;
-    margin: 45px auto;
-    padding: 0 20px;
+  max-width: 900px;
+  margin: 45px auto;
+  padding: 0 20px;
 }
 
+/* Fixes the paragraph spacing from the main theme */
+.profile-container p {
+  margin-top: 0;
+  font-size: 15px;
+}
+
+/* =========================================================
+   PAGE HEADING
+   ========================================================= */
+
 .page-heading {
-    margin-bottom: 25px;
+  margin-bottom: 25px;
 }
 
 .page-heading h1 {
-    font-size: 30px;
-    font-weight: 700;
-    margin-bottom: 8px;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #2a1450;
 }
 
 .page-heading p {
-    color: #777;
-    margin: 0;
+  color: #6b5a8c;
+  margin: 0;
 }
+
+/* =========================================================
+   PROFILE CARD
+   ========================================================= */
 
 .profile-card {
-    background: white;
-    padding: 35px;
-    border-radius: 16px;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.07);
+  background: #ffffff;
+  border: 1px solid #e6d6f5;
+  color: #2a1450;
+  padding: 35px;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(106, 47, 201, 0.12);
 }
 
-/* Profile Picture */
+/* Dark mode profile card */
+body.dark-mode main .profile-card {
+  background-color: #1c3334 !important;
+  border: 1px solid #376e6f !important;
+  color: #fff6f8;
+}
+
+/* =========================================================
+   PROFILE PICTURE
+   ========================================================= */
 
 .profile-header {
-    text-align: center;
-    padding-bottom: 25px;
+  text-align: center;
+  padding-bottom: 25px;
 }
 
 .profile-picture-container {
-    width: 135px;
-    height: 135px;
-    position: relative;
-    margin: 0 auto 15px;
+  width: 135px;
+  height: 135px;
+  position: relative;
+  margin: 0 auto 15px;
 }
 
+/* Profile picture */
 #profileImage {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid #f1c644;
-    background: #eee;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #ffc93c;
+  background: #f6edff;
 }
 
+/* Camera button */
 .camera-button {
-    position: absolute;
-    bottom: 5px;
-    right: 0;
-    background: #040427;
-    color: white;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+  position: absolute;
+  bottom: 5px;
+  right: 0;
+  background: linear-gradient(135deg, #ff5e62 0%, #8e3fd8 100%);
+  color: #ffffff;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
+/* Camera icon */
+.camera-button i,
+.edit-button i {
+  color: inherit;
+}
+
+/* Dark mode camera button */
+body.dark-mode main .camera-button {
+  background: linear-gradient(135deg, #da7b93 0%, #b05570 100%);
+  color: #140a0e;
+}
+
+body.dark-mode main .camera-button i,
+body.dark-mode main .edit-button i {
+  color: #140a0e !important;
+}
+
+/* Profile name */
 .profile-header h2 {
-    font-size: 23px;
-    margin: 10px 0 5px;
+  font-size: 23px;
+  margin: 10px 0 5px;
+  color: #2a1450;
 }
 
 .profile-header p {
-    color: #777;
-    margin-bottom: 15px;
+  color: #6b5a8c;
+  margin-bottom: 15px;
 }
 
+/* Dark mode profile text */
+body.dark-mode main .profile-header h2 {
+  color: #fff6f8;
+}
+
+body.dark-mode main .profile-header p {
+  color: #a9bec4;
+}
+
+/* =========================================================
+   PHOTO BUTTONS
+   ========================================================= */
+
 .picture-actions {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
 .upload-button,
 .remove-button {
-    padding: 9px 17px;
-    border-radius: 7px;
-    font-size: 14px;
-    cursor: pointer;
+  padding: 9px 17px;
+  border-radius: 7px;
+  font-size: 14px;
+  cursor: pointer;
 }
 
+/* Upload button */
 .upload-button {
-    background: #040427;
-    color: white;
-}
-
-.remove-button {
-    border: 1px solid #ccc;
-    background: white;
-    color: #555;
+  background: linear-gradient(135deg, #ff5e62 0%, #8e3fd8 100%);
+  color: #ffffff;
+  font-weight: bold;
 }
 
 .upload-button:hover {
-    background: #19194e;
+  background: linear-gradient(135deg, #ffc93c 0%, #ff9a3c 100%);
+  color: #2a1450;
+}
+
+/* Dark mode upload button */
+body.dark-mode main .upload-button {
+  background: linear-gradient(135deg, #da7b93 0%, #b05570 100%) !important;
+  color: #140a0e !important;
+}
+
+body.dark-mode main .upload-button:hover {
+  background: #f6c1cf !important;
+  color: #140a0e !important;
+}
+
+/* Remove button */
+.remove-button {
+  border: 1px solid #e6d6f5;
+  background: transparent;
+  color: #6b5a8c;
+  box-shadow: none;
+  font-weight: normal;
 }
 
 .remove-button:hover {
-    background: #eee;
+  background: #f6edff;
+  color: #2a1450;
+  border-color: #8e3fd8;
+  box-shadow: none;
 }
 
+/* Dark mode remove button */
+body.dark-mode main .remove-button {
+  background: transparent !important;
+  color: #a9bec4 !important;
+  border: 1px solid #376e6f !important;
+}
+
+body.dark-mode main .remove-button:hover {
+  background: #264544 !important;
+  color: #fff6f8 !important;
+  border-color: #6fb8b3 !important;
+}
+
+/* Line between sections */
 hr {
-    border: none;
-    border-top: 1px solid #e8e8e8;
-    margin: 25px 0;
+  border: none;
+  border-top: 1px solid #e6d6f5;
+  margin: 25px 0;
 }
 
-/* Section Headings */
+body.dark-mode main hr {
+  border-top: 1px solid #376e6f;
+}
+
+/* =========================================================
+   SECTION HEADINGS
+   ========================================================= */
 
 .section-heading {
-    margin-bottom: 22px;
+  margin-bottom: 22px;
 }
 
 .section-heading h3 {
-    font-size: 20px;
-    font-weight: 700;
+  font-size: 20px;
+  font-weight: bold;
+  color: #2a1450;
 }
 
 .section-heading p {
-    color: #888;
-    font-size: 14px;
+  color: #6b5a8c;
+  font-size: 14px;
 }
 
-/* Form */
+/* Dark mode section headings */
+body.dark-mode main .section-heading h3 {
+  color: #fff6f8;
+}
+
+body.dark-mode main .section-heading p {
+  color: #a9bec4;
+}
+
+/* =========================================================
+   FORM
+   ========================================================= */
 
 .form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
 
 .form-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
 }
 
 .form-group label {
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #2a1450;
 }
 
+/* Input boxes */
 .form-group input {
-    padding: 12px;
-    border: 1px solid #d8d8df;
-    border-radius: 7px;
-    font-size: 14px;
-    outline: none;
-    width: 100%;
+  padding: 12px;
+  background: #ffffff;
+  color: #2a1450;
+  border: 1px solid #e6d6f5;
+  border-radius: 7px;
+  font-size: 14px;
+  outline: none;
+  width: 100%;
 }
 
+/* Input when clicked */
 .form-group input:focus {
-    border-color: #040427;
-    box-shadow: 0 0 0 2px rgba(4, 4, 39, 0.08);
+  border-color: #8e3fd8;
+  box-shadow: 0 0 0 3px rgba(142, 63, 216, 0.2);
 }
 
+/* Disabled input */
 .form-group input:disabled {
-    background: #f3f3f5;
-    color: #777;
-    cursor: not-allowed;
+  background: #f3edfb;
+  color: #6b5a8c;
+  cursor: not-allowed;
 }
 
-/* Buttons */
+/* Dark mode form */
+body.dark-mode main .form-group label {
+  color: #fff6f8;
+}
+
+body.dark-mode main .form-group input {
+  background: #1c3334;
+  color: #fff6f8;
+  border: 1px solid #376e6f;
+}
+
+body.dark-mode main .form-group input:focus {
+  border-color: #6fb8b3;
+  box-shadow: 0 0 0 3px rgba(111, 184, 179, 0.22);
+}
+
+body.dark-mode main .form-group input:disabled {
+  background: #142627 !important;
+  color: #a9bec4 !important;
+}
+
+/* =========================================================
+   FORM BUTTONS
+   ========================================================= */
 
 .form-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
 }
 
 .edit-button,
 .save-button,
 .cancel-button {
-    padding: 11px 20px;
-    border-radius: 7px;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
+  padding: 11px 20px;
+  border-radius: 7px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
 }
 
+/* Edit and Save buttons */
 .edit-button,
 .save-button {
-    background: #040427;
-    color: white;
+  background: linear-gradient(135deg, #ff5e62 0%, #8e3fd8 100%);
+  color: #ffffff;
+  font-weight: bold;
 }
 
 .edit-button:hover,
 .save-button:hover {
-    background: #19194e;
+  background: linear-gradient(135deg, #ffc93c 0%, #ff9a3c 100%);
+  color: #2a1450;
 }
 
+/* Cancel button */
 .cancel-button {
-    background: #e8e8ee;
-    color: #333;
+  background: #f6edff;
+  color: #2a1450;
+  box-shadow: none;
+  font-weight: normal;
 }
 
+.cancel-button:hover {
+  background: #ebddfb;
+  color: #2a1450;
+  box-shadow: none;
+}
+
+/* Dark mode buttons */
+body.dark-mode main .edit-button,
+body.dark-mode main .save-button {
+  background: linear-gradient(135deg, #da7b93 0%, #b05570 100%) !important;
+  color: #140a0e !important;
+}
+
+body.dark-mode main .edit-button:hover,
+body.dark-mode main .save-button:hover {
+  background: #f6c1cf !important;
+  color: #140a0e !important;
+}
+
+body.dark-mode main .cancel-button {
+  background: #264544 !important;
+  color: #fff6f8 !important;
+}
+
+body.dark-mode main .cancel-button:hover {
+  background: #2f5555 !important;
+  color: #fff6f8 !important;
+}
+
+/* Messages under the buttons */
 #profileMessage,
 #passwordMessage {
-    margin-top: 15px;
-    font-size: 14px;
+  margin-top: 15px;
+  font-size: 14px;
 }
 
-/* Account Settings */
+/* =========================================================
+   ACCOUNT SETTINGS
+   ========================================================= */
 
 .settings-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .setting-item {
-    width: 100%;
-    background: #f8f8fb;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    padding: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    color: #040427;
-    font-size: 15px;
+  width: 100%;
+  background: #f6edff;
+  border: 1px solid #e6d6f5;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  color: #2a1450;
+  font-size: 15px;
+  font-weight: normal;
+  box-shadow: none;
 }
 
 .setting-item span {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .setting-item:hover {
-    background: #eeeeF5;
+  background: #ebddfb;
+  color: #2a1450;
+  box-shadow: none;
 }
 
+/* Dark mode settings */
+body.dark-mode main .setting-item {
+  background: #264544 !important;
+  border: 1px solid #376e6f !important;
+  color: #fff6f8 !important;
+}
+
+body.dark-mode main .setting-item:hover {
+  background: #2f5555 !important;
+  color: #fff6f8 !important;
+}
+
+/* Privacy and password boxes */
 .privacy-panel,
 #passwordPanel {
-    background: #f8f8fb;
-    padding: 18px;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    font-size: 14px;
+  background: #f6edff;
+  padding: 18px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+/* Dark mode privacy and password boxes */
+body.dark-mode main .privacy-panel,
+body.dark-mode main #passwordPanel {
+  background: #264544 !important;
+  color: #fff6f8;
 }
 
 #passwordPanel .save-button {
-    margin-top: 5px;
+  margin-top: 5px;
 }
 
-/* Back Home */
+/* =========================================================
+   BACK HOME
+   ========================================================= */
 
 .back-home {
-    margin-top: 25px;
+  margin-top: 25px;
 }
 
 .back-home a {
-    color: #040427;
-    text-decoration: none;
-    font-weight: 600;
+  color: #6b2fc9;
+  text-decoration: none;
+  font-weight: 600;
 }
 
 .back-home a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
-/* Responsive Design */
+/* Dark mode back home link */
+body.dark-mode main .back-home a {
+  color: #6fb8b3;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
 
 @media (max-width: 600px) {
+  /* Makes the page fit smaller screens */
+  .profile-container {
+    margin: 25px auto;
+    padding: 0 12px;
+  }
 
-    .profile-container {
-        margin: 25px auto;
-        padding: 0 12px;
-    }
+  .profile-card {
+    padding: 22px 17px;
+  }
 
-    .profile-card {
-        padding: 22px 17px;
-    }
+  /* Changes the form from two columns to one */
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
 
-    .form-grid {
-        grid-template-columns: 1fr;
-        gap: 0;
-    }
+  .page-heading h1 {
+    font-size: 25px;
+  }
 
-    .page-heading h1 {
-        font-size: 25px;
-    }
+  /* Allows buttons to move onto another line */
+  .form-actions {
+    flex-wrap: wrap;
+  }
 
-    .form-actions {
-        flex-wrap: wrap;
-    }
-
-    .form-actions button {
-        flex: 1;
-    }
-
+  .form-actions button {
+    flex: 1;
+  }
 }

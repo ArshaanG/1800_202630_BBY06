@@ -1,31 +1,620 @@
 
-/* General dark mode */
+/* =========================================================
+   PAGE
+   Changes the whole page to dark mode.
+   ========================================================= */
+
 body.dark-mode {
-    background-color: #121212 !important;
-    color: #ffffff !important;
+    background-color: #140A0E !important;
+    color: #FFF6F8 !important;
+    background-image: none !important;
+
+    /* Makes the colour change smooth. */
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    /* Changes the scrollbar colours. */
+    scrollbar-color: #B05570 #140A0E;
 }
 
-/* Cards and sections */
-body.dark-mode .card,
-body.dark-mode .settings-card,
-body.dark-mode .menu-card,
-body.dark-mode .setting-item {
-    background-color: #1e1e1e !important;
-    color: #ffffff !important;
-    border-color: #333333 !important;
+
+/* =========================================================
+   MAIN CONTENT
+   Makes the main part of the page dark.
+   ========================================================= */
+
+body.dark-mode main {
+    background-color: #140A0E !important;
+    color: #FFF6F8 !important;
 }
 
-/* Headings and paragraphs */
-body.dark-mode h1,
-body.dark-mode h2,
-body.dark-mode h3,
-body.dark-mode p,
-body.dark-mode label,
-body.dark-mode span {
-    color: #ffffff;
+body.dark-mode main .container,
+body.dark-mode main .row,
+body.dark-mode main section,
+body.dark-mode main > * {
+    background-color: #140A0E !important;
+    color: #FFF6F8 !important;
 }
 
-/* Links */
-body.dark-mode a {
-    color: #9bbcff;
+
+/* =========================================================
+   HEADINGS
+   Makes all headings bright.
+   ========================================================= */
+
+body.dark-mode main h1,
+body.dark-mode main h2,
+body.dark-mode main h3,
+body.dark-mode main h4,
+body.dark-mode main h5,
+body.dark-mode main h6 {
+    color: #FFF6F8 !important;
+}
+
+
+/* Adds a soft pink glow to the main heading. */
+body.dark-mode main h1 {
+    text-shadow: 0 0 22px rgba(218, 123, 147, 0.35);
+}
+
+
+/* =========================================================
+   NORMAL TEXT
+   Makes normal text a softer grey colour.
+   ========================================================= */
+
+body.dark-mode main p,
+body.dark-mode main label,
+body.dark-mode main li,
+body.dark-mode main td,
+body.dark-mode main th {
+    color: #A9BEC4 !important;
+}
+
+
+/* Important text stays white. */
+body.dark-mode main strong,
+body.dark-mode main b {
+    color: #FFF6F8 !important;
+}
+
+
+/* =========================================================
+   CARDS
+   Gives cards a dark teal background.
+   ========================================================= */
+
+body.dark-mode main .card,
+body.dark-mode main .settings-card,
+body.dark-mode main .setting-item,
+body.dark-mode main .menu-card {
+    background-color: #1C3334 !important;
+    color: #FFF6F8 !important;
+    border: 1px solid #376E6F !important;
+
+    /* Adds a shadow around the card. */
+    box-shadow: 0 10px 30px rgba(8, 3, 5, 0.65) !important;
+
+    /* Makes the hover effect smooth. */
+    transition: all 0.25s ease;
+}
+
+
+/* Cards move up slightly when the mouse is over them. */
+body.dark-mode main .card:hover,
+body.dark-mode main .settings-card:hover,
+body.dark-mode main .setting-item:hover {
+    background-color: #264544 !important;
+    border-color: #DA7B93 !important;
+
+    transform: translateY(-3px);
+
+    /* Adds a pink glow. */
+    box-shadow: 0 15px 35px rgba(218, 123, 147, 0.22) !important;
+}
+
+
+/* =========================================================
+   MENU OPTIONS
+   ========================================================= */
+
+body.dark-mode main .menu-option {
+    background-color: #1C3334 !important;
+    color: #FFF6F8 !important;
+    border: 1px solid #376E6F !important;
+
+    transition: all 0.25s ease;
+}
+
+
+/* Menu option changes when the mouse is over it. */
+body.dark-mode main .menu-option:hover {
+    background-color: #264544 !important;
+    border-color: #6FB8B3 !important;
+    color: #FFF6F8 !important;
+
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 12px 30px rgba(111, 184, 179, 0.18),
+        0 0 0 1px rgba(111, 184, 179, 0.25) !important;
+}
+
+
+/* Menu title. */
+body.dark-mode main .menu-option h5 {
+    color: #FFF6F8 !important;
+}
+
+
+/* Menu description. */
+body.dark-mode main .menu-option p {
+    color: #A9BEC4 !important;
+}
+
+
+/* =========================================================
+   ICONS
+   Makes icons teal.
+   ========================================================= */
+
+body.dark-mode main i,
+body.dark-mode main .bi {
+    color: #6FB8B3 !important;
+}
+
+
+/* Makes menu icon changes smooth. */
+body.dark-mode main .menu-option i,
+body.dark-mode main .menu-option .bi {
+    transition: all 0.25s ease;
+}
+
+
+/* Menu icons become pink and slightly bigger when hovered. */
+body.dark-mode main .menu-option:hover i,
+body.dark-mode main .menu-option:hover .bi {
+    color: #F6C1CF !important;
+    transform: scale(1.15);
+}
+
+
+/* =========================================================
+   MAIN BUTTON
+   Creates a rose coloured button.
+   ========================================================= */
+
+body.dark-mode main .btn-primary {
+    background: linear-gradient(135deg, #DA7B93, #B05570) !important;
+    border-color: transparent !important;
+    color: #140A0E !important;
+    font-weight: bold;
+
+    box-shadow: 0 5px 18px rgba(218, 123, 147, 0.35) !important;
+
+    transition: all 0.2s ease;
+}
+
+
+/* Main button becomes light pink when hovered. */
+body.dark-mode main .btn-primary:hover {
+    background: #F6C1CF !important;
+    border-color: #F6C1CF !important;
+    color: #140A0E !important;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 8px 22px rgba(246, 193, 207, 0.40) !important;
+}
+
+
+/* =========================================================
+   SECONDARY BUTTON
+   ========================================================= */
+
+body.dark-mode main .btn-secondary {
+    background-color: #1C3334 !important;
+    border-color: #376E6F !important;
+    color: #FFF6F8 !important;
+}
+
+
+/* Secondary button hover. */
+body.dark-mode main .btn-secondary:hover {
+    background-color: #264544 !important;
+    border-color: #6FB8B3 !important;
+    color: #6FB8B3 !important;
+}
+
+
+/* =========================================================
+   WARNING / GOLD BUTTON
+   ========================================================= */
+
+body.dark-mode main .btn-warning,
+body.dark-mode main .btn-gold {
+    background-color: #F6C1CF !important;
+    border-color: #F6C1CF !important;
+    color: #140A0E !important;
+    font-weight: bold;
+
+    box-shadow: 0 5px 15px rgba(246, 193, 207, 0.28) !important;
+}
+
+
+/* Warning button hover. */
+body.dark-mode main .btn-warning:hover,
+body.dark-mode main .btn-gold:hover {
+    background-color: #FBD9E2 !important;
+    border-color: #FBD9E2 !important;
+    color: #140A0E !important;
+}
+
+
+/* =========================================================
+   INPUT BOXES
+   ========================================================= */
+
+body.dark-mode main input,
+body.dark-mode main textarea,
+body.dark-mode main select {
+    background-color: #1C3334 !important;
+    color: #FFF6F8 !important;
+    border: 1px solid #376E6F !important;
+}
+
+
+/* Changes the input when the user clicks on it. */
+body.dark-mode main input:focus,
+body.dark-mode main textarea:focus,
+body.dark-mode main select:focus {
+    background-color: #1C3334 !important;
+    color: #FFF6F8 !important;
+    border-color: #6FB8B3 !important;
+
+    box-shadow: 0 0 0 0.2rem rgba(111, 184, 179, 0.22) !important;
+}
+
+
+/* Text shown before the user types. */
+body.dark-mode main input::placeholder,
+body.dark-mode main textarea::placeholder {
+    color: #A9BEC4 !important;
+    opacity: 0.8;
+}
+
+
+/* =========================================================
+   LINKS
+   Makes links teal.
+   ========================================================= */
+
+body.dark-mode main a {
+    color: #6FB8B3 !important;
+    transition: color 0.2s ease;
+}
+
+
+/* Links become pink when hovered. */
+body.dark-mode main a:hover {
+    color: #F6C1CF !important;
+}
+
+
+/* Icons inside links also become pink. */
+body.dark-mode main a:hover i,
+body.dark-mode main a:hover .bi {
+    color: #F6C1CF !important;
+}
+
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+body.dark-mode main table {
+    color: #FFF6F8 !important;
+    border-color: #376E6F !important;
+}
+
+
+/* Table heading uses rose colours. */
+body.dark-mode main thead {
+    background: linear-gradient(90deg, #DA7B93, #B05570) !important;
+    color: #140A0E !important;
+}
+
+
+/* Table heading text is dark. */
+body.dark-mode main thead th {
+    color: #140A0E !important;
+}
+
+
+/* Table body is dark teal. */
+body.dark-mode main tbody {
+    background-color: #1C3334 !important;
+}
+
+
+/* Table borders. */
+body.dark-mode main tr {
+    border-color: #376E6F !important;
+}
+
+
+/* Table row changes colour when hovered. */
+body.dark-mode main tbody tr:hover {
+    background-color: #264544 !important;
+}
+
+
+/* =========================================================
+   HORIZONTAL LINE
+   ========================================================= */
+
+body.dark-mode main hr {
+    border-color: #B05570 !important;
+    opacity: 0.6 !important;
+}
+
+
+/* =========================================================
+   BADGES
+   ========================================================= */
+
+body.dark-mode main .badge {
+    background-color: #DA7B93 !important;
+    color: #140A0E !important;
+}
+
+
+/* Warning badges are light pink. */
+body.dark-mode main .badge.bg-warning {
+    background-color: #F6C1CF !important;
+    color: #140A0E !important;
+}
+
+
+/* =========================================================
+   ALERT BOX
+   ========================================================= */
+
+body.dark-mode main .alert {
+    background-color: #1C3334 !important;
+    color: #FFF6F8 !important;
+    border-color: #376E6F !important;
+}
+
+
+/* =========================================================
+   TOP NAVBAR
+   ========================================================= */
+
+body.dark-mode site-navbar .navbar {
+    background-color: #140A0E !important;
+
+    /* Removes the light mode background. */
+    background-image: none !important;
+
+    /* Adds a coloured line under the navbar. */
+    border-bottom: 2px solid transparent !important;
+
+    border-image: linear-gradient(
+        90deg,
+        #DA7B93,
+        #B05570,
+        #6FB8B3
+    ) 1 !important;
+
+    box-shadow: 0 5px 20px rgba(8, 3, 5, 0.6) !important;
+}
+
+
+/* Navbar container. */
+body.dark-mode site-navbar .container-fluid {
+    background-color: #140A0E !important;
+    background-image: none !important;
+}
+
+
+/* Website name in the navbar. */
+body.dark-mode site-navbar .navbar-brand {
+    color: #F6C1CF !important;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+
+    text-shadow: 0 0 14px rgba(246, 193, 207, 0.30);
+}
+
+
+/* Navbar links. */
+body.dark-mode site-navbar .nav-link {
+    color: #FFF6F8 !important;
+    transition: all 0.2s ease;
+}
+
+
+/* Navbar links become teal when hovered. */
+body.dark-mode site-navbar .nav-link:hover {
+    color: #6FB8B3 !important;
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+   ========================================================= */
+
+body.dark-mode site-navbar .btn-outline-light {
+    color: #6FB8B3 !important;
+    border-color: #6FB8B3 !important;
+}
+
+
+/* Login button hover. */
+body.dark-mode site-navbar .btn-outline-light:hover {
+    background-color: #6FB8B3 !important;
+    border-color: #6FB8B3 !important;
+    color: #140A0E !important;
+}
+
+
+/* =========================================================
+   NAVBAR MENU BUTTON
+   ========================================================= */
+
+body.dark-mode site-navbar .navbar-toggler {
+    border-color: #376E6F !important;
+}
+
+
+/* Makes the menu icon white. */
+body.dark-mode site-navbar .navbar-toggler-icon {
+    filter: brightness(0) invert(1);
+}
+
+
+/* =========================================================
+   BOTTOM NAVIGATION
+   ========================================================= */
+
+body.dark-mode .navbar.fixed-bottom {
+    background-color: #140A0E !important;
+    background-image: none !important;
+
+    border-top: 2px solid #B05570 !important;
+
+    box-shadow: 0 -5px 20px rgba(8, 3, 5, 0.6) !important;
+}
+
+
+/* Bottom navbar container. */
+body.dark-mode .navbar.fixed-bottom .container-fluid {
+    background-color: #140A0E !important;
+    background-image: none !important;
+}
+
+
+/* Bottom navigation text and icons. */
+body.dark-mode .navbar.fixed-bottom a,
+body.dark-mode .navbar.fixed-bottom small,
+body.dark-mode .navbar.fixed-bottom i {
+    color: #A9BEC4 !important;
+}
+
+
+/* Bottom navigation changes colour when hovered. */
+body.dark-mode .navbar.fixed-bottom a:hover,
+body.dark-mode .navbar.fixed-bottom a:hover i {
+    color: #6FB8B3 !important;
+}
+
+
+/* =========================================================
+   ACTIVE BOTTOM NAVIGATION
+   Shows the page the user is currently on.
+   ========================================================= */
+
+body.dark-mode .navbar.fixed-bottom a.active {
+    color: #FFF6F8 !important;
+    font-weight: bold;
+}
+
+
+/* Active icon becomes rose. */
+body.dark-mode .navbar.fixed-bottom a.active i {
+    color: #DA7B93 !important;
+    transform: scale(1.12);
+
+    filter: drop-shadow(0 0 8px rgba(218, 123, 147, 0.6));
+}
+
+
+/* =========================================================
+   DARK MODE SWITCH
+   ========================================================= */
+
+/* Switch when it is turned off. */
+body.dark-mode main .form-check-input {
+    background-color: #264544 !important;
+    border-color: #376E6F !important;
+}
+
+
+/* Switch when it is turned on. */
+body.dark-mode main .form-check-input:checked {
+    background-color: #DA7B93 !important;
+    border-color: #DA7B93 !important;
+}
+
+
+/* =========================================================
+   TEXT SELECTION
+   Changes the colour when the user highlights text.
+   ========================================================= */
+
+body.dark-mode ::selection {
+    background-color: #F6C1CF;
+    color: #140A0E;
+}
+
+
+/* =========================================================
+   QUIZ SCORES
+   ========================================================= */
+
+/* Score and points are light pink. */
+body.dark-mode main .score,
+body.dark-mode main .points,
+body.dark-mode main .score-value {
+    color: #F6C1CF !important;
+    font-weight: bold;
+
+    text-shadow: 0 0 14px rgba(246, 193, 207, 0.30);
+}
+
+
+/* Correct answers are teal. */
+body.dark-mode main .correct {
+    color: #6FB8B3 !important;
+}
+
+
+/* Question number is rose. */
+body.dark-mode main .question-number {
+    color: #DA7B93 !important;
+    font-weight: bold;
+}
+
+
+/* =========================================================
+   QUIZ HIGHLIGHT
+   Adds a rose border and glow around the quiz highlight.
+   ========================================================= */
+
+body.dark-mode main .quiz-highlight {
+    border: 1px solid #DA7B93 !important;
+
+    box-shadow:
+        0 0 22px rgba(218, 123, 147, 0.28),
+        0 10px 30px rgba(8, 3, 5, 0.6) !important;
+}
+
+
+/* =========================================================
+   EXTRA HIGHLIGHTS
+   These class names are kept so the existing website
+   continues to work.
+   ========================================================= */
+
+body.dark-mode main .desert-highlight {
+    color: #F6C1CF !important;
+
+    text-shadow: 0 0 12px rgba(246, 193, 207, 0.30);
+}
+
+
+body.dark-mode main .orange-highlight {
+    color: #DA7B93 !important;
+
+    text-shadow: 0 0 12px rgba(218, 123, 147, 0.35);
 }

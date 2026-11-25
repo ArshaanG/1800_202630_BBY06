@@ -302,6 +302,16 @@ document.getElementById('leave-room-button').addEventListener('click', leaveRoom
 document.getElementById('copy-code-button').addEventListener('click', copyCode);
 document.getElementById('join-room-button').addEventListener('click', showJoin);
 document.getElementById('join-room-submit').addEventListener('click', joinRoom);
+// Check if Dark Mode was saved
+function applyDarkMode() {
+    const enabled = localStorage.getItem("darkMode") === "true";
+
+    // Add or remove dark mode
+    document.body.classList.toggle("dark-mode", enabled);
+}
+
+// Apply Dark Mode when the page opens
+applyDarkMode();
 document.getElementById('join-back-button').addEventListener('click', showHome);
 document.getElementById('ready-button').addEventListener('click', toggleReady);
 document.getElementById('start-quiz-button').addEventListener('click', startQuiz);

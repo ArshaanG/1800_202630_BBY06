@@ -234,7 +234,13 @@ passwordForm.addEventListener("submit", function (event) {
   passwordForm.reset();
 });
 
+// Privacy Settings Panel
+const privacyButton = document.getElementById("privacyButton");
+const privacyPanel = document.getElementById("privacyPanel");
 
+privacyButton.addEventListener("click", function () {
+  privacyPanel.hidden = !privacyPanel.hidden;
+});
 
 // Initial page state
 setEditing(false);

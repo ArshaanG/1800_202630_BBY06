@@ -12,3 +12,4 @@ function applyDarkMode() {
 
 // Apply Dark Mode when the page opens
 applyDarkMode();
+

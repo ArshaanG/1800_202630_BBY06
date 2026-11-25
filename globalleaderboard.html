@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>My BCIT Project</title>
+  <meta name="comp1800 template" content="My 1800 App">
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Web Components for shared navbar and footer layout -->
+  <script type="module" src="/src/components/site-navbar.js"></script>
+  <script type="module" src="/src/components/site-footer.js"></script>
+</head>
+
+<body>
+  <!------------------------------>
+  <!-- Your HTML Layout go here -->
+  <!------------------------------>
+
+  <!-- our own navbar goes here -->
+  <site-navbar></site-navbar>
+
+  <!-- Main content goes here -->
+
+  <!-- placeholder content. We will use JS to modify strings-->
+  <main class="container pt-4" style="max-width: 720px; padding-bottom: 300px;">
+
+    <h1 class="text-center mb-4">Global Leaderboard</h1>
+
+    <p id="leaderboard-status" class="text-center text-body-secondary"></p>
+
+    <ol id="leaderboard-list" class="list-group list-group-numbered"></ol>
+
+  </main>
+
+
+  <!-- our own footer goes here -->
+  <site-footer></site-footer>
+
+  <!---------------------------------------------->
+  <!-- Your own JavaScript scripts go here      -->
+  <!---------------------------------------------->
+
+  <script type="module" src="/src/app.js"></script>
+  <script type="module" src="/src/globalleaderboard.js"></script>
+</body>
+
+</html>

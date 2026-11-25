@@ -19,7 +19,7 @@ footer.innerHTML = `
             <small>Rooms</small>
         </a>
 
-        <a class="nav-link text-center text-white" href="leaderboard.html">
+        <a class="nav-link text-center text-white" href="globalleaderboard.html">
             <i class="bi bi-trophy d-block fs-5"></i>
             <small>Leaderboard</small>
         </a>

@@ -8,8 +8,8 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: #f6f8fc;
-    color: #202124;
+    /* background: #f6f8fc; */
+    /* color: #202124; */
 }
 
 /* Dashboard layout */
@@ -21,16 +21,16 @@ body {
 /* Sidebar */
 .sidebar {
     width: 245px;
-    background: white;
+    /* background: white; */
     padding: 30px 20px;
-    border-right: 1px solid #e5e7eb;
+    border-right: 1px solid;
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
 }
 
 .sidebar h2 {
-    color: #2563eb;
+    /* color: #2563eb; */
     margin-bottom: 35px;
     font-size: 25px;
 }
@@ -43,28 +43,28 @@ body {
 
 .sidebar nav a {
     text-decoration: none;
-    color: #444;
+    /* color: #444; */
     padding: 13px 15px;
     border-radius: 10px;
     font-size: 15px;
 }
 
-.sidebar nav a:hover,
+/* .sidebar nav a:hover,
 .sidebar nav a.active {
     background: #e8f0fe;
     color: #1a73e8;
-}
+} */
 
 .sidebar-bottom {
     margin-top: auto;
     padding: 15px 5px;
-    color: #555;
+    /* color: #555; */
 }
 
 .sidebar-bottom small {
     display: block;
     margin-top: 8px;
-    color: #888;
+    /* color: #888; */
 }
 
 /* Main content */
@@ -88,12 +88,12 @@ body {
 
 .top-section p,
 .section-heading p {
-    color: #777;
+    /* color: #777; */
     font-size: 14px;
 }
 
 .user-info {
-    color: #555;
+    /* color: #555; */
     font-weight: bold;
 }
 
@@ -108,15 +108,15 @@ body {
     flex: 1;
     min-width: 0;
     padding: 14px 18px;
-    border: 1px solid #ddd;
+    border: 1px solid;
     border-radius: 25px;
     font-size: 15px;
     outline: none;
 }
 
-.toolbar input:focus {
+/* .toolbar input:focus {
     border-color: #4285f4;
-}
+} */
 
 button {
     border: none;
@@ -128,8 +128,8 @@ button {
 
 .toolbar button,
 .upload-area button {
-    background: #2563eb;
-    color: white;
+    /* background: #2563eb; */
+    /* color: white; */
     padding: 13px 22px;
     border-radius: 25px;
 }
@@ -140,8 +140,8 @@ button:hover {
 
 /* Upload area */
 .upload-area {
-    background: white;
-    border: 2px dashed #c8d8f5;
+    /* background: white; */
+    border: 2px dashed;
     border-radius: 16px;
     padding: 45px 20px;
     text-align: center;
@@ -149,16 +149,16 @@ button:hover {
     transition: 0.2s;
 }
 
-.upload-area.drag-over {
+/* .upload-area.drag-over {
     background: #eaf2ff;
     border-color: #2563eb;
-}
+} */
 
 .upload-icon {
     width: 55px;
     height: 55px;
-    background: #e8f0fe;
-    color: #2563eb;
+    /* background: #e8f0fe;
+    color: #2563eb; */
     border-radius: 50%;
     margin: 0 auto 18px;
     display: grid;
@@ -172,7 +172,7 @@ button:hover {
 }
 
 .upload-area p {
-    color: #777;
+    /* color: #777; */
     margin-bottom: 20px;
     font-size: 14px;
 }
@@ -180,18 +180,18 @@ button:hover {
 .upload-area small {
     display: block;
     margin-top: 15px;
-    color: #888;
+    /* color: #888; */
 }
 
 #uploadStatus {
     margin-top: 15px;
-    color: #2563eb;
+    /* color: #2563eb; */
     font-size: 14px;
 }
 
 /* Document section */
 .documents-section {
-    background: white;
+    /* background: white; */
     border-radius: 15px;
     padding: 25px;
 }
@@ -209,7 +209,7 @@ button:hover {
 }
 
 #fileCount {
-    color: #777;
+    /* color: #777; */
     font-size: 13px;
 }
 
@@ -224,20 +224,20 @@ button:hover {
 }
 
 .table-header {
-    color: #666;
+    /* color: #666; */
     font-weight: bold;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid;
     font-size: 13px;
 }
 
 .file-row {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid;
     font-size: 14px;
 }
 
-.file-row:hover {
+/* .file-row:hover {
     background: #f8faff;
-}
+} */
 
 .file-name {
     display: flex;
@@ -248,7 +248,7 @@ button:hover {
 }
 
 .pdf-icon {
-    color: #ea4335;
+    /* color: #ea4335; */
     font-size: 25px;
 }
 
@@ -264,20 +264,20 @@ button:hover {
 
 .file-actions a,
 .delete-button {
-    color: #2563eb;
+    /* color: #2563eb; */
     text-decoration: none;
     background: none;
     font-size: 13px;
 }
 
-.delete-button {
+/* .delete-button {
     color: #dc2626;
-}
+} */
 
 .empty-message {
     text-align: center;
     padding: 35px;
-    color: #888;
+    /* color: #888; */
 }
 
 /* Mobile */
@@ -338,7 +338,7 @@ button:hover {
 .upload-done {
     text-align: center;
     padding: 60px 20px;
-    background: white;
+    /* background: white; */
     border-radius: 15px;
     margin: 40px auto;
     max-width: 600px;
@@ -353,8 +353,8 @@ button:hover {
     width: 75px;
     height: 75px;
     border-radius: 50%;
-    background: #dcfce7;
-    color: #16a34a;
+    /* background: #dcfce7;
+    color: #16a34a; */
     font-size: 45px;
     display: flex;
     align-items: center;
@@ -363,13 +363,13 @@ button:hover {
 }
 
 .upload-done h2 {
-    color: #040427;
+    /* color: #040427; */
     margin-bottom: 12px;
 }
 
-.upload-done p {
+/* .upload-done p {
     color: #666;
-}
+} */
 
 #goToQuizButton,
 #backToDocumentsButton {
@@ -381,7 +381,7 @@ button:hover {
     font-weight: bold;
 }
 
-#goToQuizButton {
+/* #goToQuizButton {
     background: #040427;
     color: white;
 }
@@ -389,4 +389,4 @@ button:hover {
 #backToDocumentsButton {
     background: #eeeef5;
     color: #040427;
-}
+} */

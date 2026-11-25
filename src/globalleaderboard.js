@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import "/dark-mode.css";
 import { db, auth } from "./firebaseConfig.js";
 import { collection, query, orderBy, limit, onSnapshot } from "firebase/firestore";
 
@@ -44,3 +45,18 @@ onSnapshot(q, (snap) => {
         list.appendChild(li);
     });
 });
+
+// Initial page state
+setEditing(false);
+
+savedData = getProfileData();
+// Check if Dark Mode was saved
+function applyDarkMode() {
+    const enabled = localStorage.getItem("darkMode") === "true";
+
+    // Turn Dark Mode on or off
+    document.body.classList.toggle("dark-mode", enabled);
+}
+
+// Apply Dark Mode when the page opens
+applyDarkMode();

@@ -683,3 +683,11 @@ backToDocumentsButton.addEventListener("click", () => {
     document.querySelector("site-footer").hidden = false;
 
 });
+
+function applyDarkMode() {
+    const enabled = localStorage.getItem("darkMode") === "true";
+
+    document.body.classList.toggle("dark-mode", enabled);
+}
+
+applyDarkMode();

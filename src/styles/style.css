@@ -1,24 +1,69 @@
-#lobby-screen, #join-room-screen {
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+body {
+    background: linear-gradient(160deg, #FFF4EC 0%, #F8EFFF 55%, #F0E8FF 100%);
+    background-attachment: fixed;
+    color: #2A1450;
+    padding-bottom: 75px;
+}
+
+
+/* =========================================================
+   LOBBY / JOIN ROOM
+   ========================================================= */
+
+#lobby-screen,
+#join-room-screen {
     font-size: 56px;
     font-weight: bold;
     margin: -110px 0px;
+    color: #2A1450;
 }
+
+
+/* =========================================================
+   ROOM CODE
+   ========================================================= */
 
 #room-code {
     letter-spacing: 10px;
     margin-top: 20px;
+    color: #D63A6E;
+    font-weight: bold;
 }
 
-#lobby-title, #join-room-title {
+
+/* =========================================================
+   TITLES
+   ========================================================= */
+
+#lobby-title,
+#join-room-title {
     font-size: 48px;
     font-weight: bold;
     margin: 0px 0px;
+    color: #2A1450;
 }
 
-#player-list-container, p {
+
+/* =========================================================
+   PLAYER LIST / TEXT
+   ========================================================= */
+
+#player-list-container,
+p {
     margin-top: 70px;
     font-size: 24px;
+    color: #6B5A8C;
 }
+
+
+/* =========================================================
+   ROOM CODE INPUT
+   ========================================================= */
 
 #room-code-input {
     font-size: 24px;
@@ -27,7 +72,249 @@
     margin-top: 3%;
     justify-content: center;
     text-align: center;
+
+    background-color: #FFFFFF;
+    color: #2A1450;
+
+    border: 2px solid #E6D6F5;
+    border-radius: 8px;
 }
-body {
-    padding-bottom: 75px;
+
+
+/* =========================================================
+   INPUT FOCUS
+   ========================================================= */
+
+#room-code-input:focus {
+    outline: none;
+
+    border-color: #8E3FD8;
+
+    box-shadow:
+        0 0 0 3px rgba(142, 63, 216, 0.20);
+}
+
+
+/* =========================================================
+   LINKS
+   ========================================================= */
+
+a {
+    color: #6B2FC9;
+}
+
+a:hover {
+    color: #4A1D96;
+}
+
+
+/* =========================================================
+   BUTTONS
+   CORAL -> VIOLET GRADIENT
+   ========================================================= */
+
+button {
+    background: linear-gradient(135deg, #FF5E62 0%, #8E3FD8 100%);
+    color: #FFFFFF;
+
+    border: 2px solid transparent;
+    border-radius: 8px;
+
+    font-weight: bold;
+
+    box-shadow: 0 4px 14px rgba(142, 63, 216, 0.28);
+}
+
+
+/* =========================================================
+   BUTTON HOVER
+   GOLD
+   ========================================================= */
+
+button:hover {
+    background: linear-gradient(135deg, #FFC93C 0%, #FF9A3C 100%);
+    border-color: transparent;
+    color: #2A1450;
+
+    box-shadow: 0 6px 18px rgba(255, 154, 60, 0.35);
+}
+
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+.card {
+    background-color: #FFFFFF;
+    color: #2A1450;
+
+    border: 1px solid #E6D6F5;
+    border-radius: 12px;
+
+    box-shadow: 0 8px 24px rgba(106, 47, 201, 0.10);
+}
+
+
+/* =========================================================
+   CARD HOVER
+   ========================================================= */
+
+.card:hover {
+    background-color: #F6EDFF;
+}
+
+
+/* =========================================================
+   SCORE TEXT
+   GOLD PILL WITH DARK TEXT
+   ========================================================= */
+
+.score,
+.points,
+.score-value {
+    background: linear-gradient(135deg, #FFC93C 0%, #FF9A3C 100%);
+    color: #2A1450;
+    font-weight: bold;
+
+    padding: 2px 12px;
+    border-radius: 999px;
+}
+
+
+/* =========================================================
+   ICONS
+   ========================================================= */
+
+i,
+.bi {
+    color: #8E3FD8;
+}
+
+
+/* =========================================================
+   ICON HOVER
+   ========================================================= */
+
+a:hover i,
+a:hover .bi {
+    color: #4A1D96;
+}
+
+
+/* =========================================================
+   TOP NAVBAR
+   SAME GRADIENT AS THE FOOTER
+   ========================================================= */
+
+site-navbar .navbar {
+    background: linear-gradient(90deg, #2A1160 0%, #5B1A7A 55%, #8A1F6E 100%) !important;
+
+    border-bottom: 3px solid #FFC93C !important;
+
+    box-shadow: 0 4px 16px rgba(42, 17, 96, 0.30) !important;
+}
+
+site-navbar .container-fluid {
+    background: transparent !important;
+}
+
+site-navbar .navbar-brand {
+    color: #FFC93C !important;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+site-navbar .nav-link {
+    color: #FFFFFF !important;
+    transition: color 0.2s ease;
+}
+
+site-navbar .nav-link:hover {
+    color: #FFC93C !important;
+}
+
+site-navbar .navbar i,
+site-navbar .navbar .bi {
+    color: #FFC93C !important;
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+   ========================================================= */
+
+site-navbar .btn-outline-light {
+    background: transparent !important;
+    color: #FFC93C !important;
+    border-color: #FFC93C !important;
+    box-shadow: none !important;
+}
+
+site-navbar .btn-outline-light:hover {
+    background: #FFC93C !important;
+    border-color: #FFC93C !important;
+    color: #2A1160 !important;
+}
+
+
+/* =========================================================
+   NAVBAR TOGGLE
+   ========================================================= */
+
+site-navbar .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.45) !important;
+}
+
+site-navbar .navbar-toggler-icon {
+    filter: brightness(0) invert(1);
+}
+
+
+/* =========================================================
+   BOTTOM NAVIGATION (FOOTER)
+   SAME GRADIENT AS THE TOP NAVBAR
+   ========================================================= */
+
+.navbar.fixed-bottom {
+    background: linear-gradient(90deg, #2A1160 0%, #5B1A7A 55%, #8A1F6E 100%) !important;
+
+    border-top: 3px solid #FFC93C !important;
+
+    box-shadow: 0 -4px 16px rgba(42, 17, 96, 0.30) !important;
+}
+
+.navbar.fixed-bottom .container-fluid {
+    background: transparent !important;
+}
+
+.navbar.fixed-bottom a,
+.navbar.fixed-bottom small {
+    color: #D9C8F2 !important;
+}
+
+.navbar.fixed-bottom i,
+.navbar.fixed-bottom .bi {
+    color: #D9C8F2 !important;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.navbar.fixed-bottom a:hover,
+.navbar.fixed-bottom a:hover i {
+    color: #FFFFFF !important;
+}
+
+
+/* =========================================================
+   BOTTOM NAV ACTIVE
+   ========================================================= */
+
+.navbar.fixed-bottom a.active {
+    color: #FFFFFF !important;
+    font-weight: 700;
+}
+
+.navbar.fixed-bottom a.active i,
+.navbar.fixed-bottom a.active .bi {
+    color: #FFC93C !important;
+    transform: scale(1.12);
 }

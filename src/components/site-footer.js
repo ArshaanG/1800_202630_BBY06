@@ -3,7 +3,7 @@
 const footer = document.createElement("nav");
 
 footer.className = "navbar fixed-bottom navbar-dark";
-footer.style.backgroundColor = "#040427";
+footer.style.backgroundColor = "#000000";
 
 footer.innerHTML = `
     <div class="container-fluid justify-content-around">

@@ -12,7 +12,7 @@ class SiteNavbar extends HTMLElement {
     renderNavbar() {
         this.innerHTML = `
             <nav class="navbar navbar-expand-lg navbar-dark"
-                 style="background-color: #040427;">
+                 style="background-color: #000000;">
 
                 <div class="container-fluid">
 

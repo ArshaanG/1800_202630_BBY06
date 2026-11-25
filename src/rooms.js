@@ -4,9 +4,11 @@ import "/dark-mode.css";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import "./styles/style.css";
 
+import { onAuthReady } from "/src/authentication.js";
+
 import { auth, db } from "./firebaseConfig.js";
 import {
-    doc, getDoc, setDoc, updateDoc, deleteDoc, 
+    doc, getDoc, setDoc, updateDoc, deleteDoc,
     onSnapshot, deleteField, serverTimestamp, runTransaction
 } from "firebase/firestore";
 
@@ -67,27 +69,33 @@ function updatePlayerList(code) {
             return;
         }
         document.getElementById("gen-quiz-button").hidden =
-        data.hostId !== playerId;
-        if (data.quizStatus === "ready" && data.quiz) {
+            data.hostId !== playerId;
+        const allReady = Object.values(data.players || {}).every(p => p.ready);
+
+        const quizReady = !!data.quiz?.questions?.length;
+
+        document.getElementById('start-quiz-button').disabled =
+            playerId !== data.hostId || !allReady || !quizReady;
+        /*if (data.quizStatus === "ready" && data.quiz) {
             window.location.href =
                 `/template.html?roomCode=${encodeURIComponent(code)}`;
             return;
-        }
+        }*/
         const list = document.getElementById('player-list');
         list.innerHTML = '';
         Object.entries(data.players || {})
-        .sort(([idA], [idB]) => (idB === data.hostId) - (idA === data.hostId))
-        .forEach(([id, player]) => {
-            const allReady = Object.values(data.players || {}).every(p => p.ready);
-            document.getElementById('start-quiz-button').disabled = (playerId !== data.hostId) || !allReady;
-            const li = document.createElement('li');
-            let text = player?.name || "Guest";
-            if (id === playerId) text += " (You)";
-            if (id === data.hostId) text += " (👑)";
-            if (player?.ready) text += " (Ready)";
-            li.textContent = text;
-            list.appendChild(li);
-        });
+            .sort(([idA], [idB]) => (idB === data.hostId) - (idA === data.hostId))
+            .forEach(([id, player]) => {
+                /*const allReady = Object.values(data.players || {}).every(p => p.ready);
+                document.getElementById('start-quiz-button').disabled = (playerId !== data.hostId) || !allReady;*/
+                const li = document.createElement('li');
+                let text = player?.name || "Guest";
+                if (id === playerId) text += " (You)";
+                if (id === data.hostId) text += " (👑)";
+                if (player?.ready) text += " (Ready)";
+                li.textContent = text;
+                list.appendChild(li);
+            });
         isReady = !!data.players?.[playerId]?.ready;
         document.getElementById('ready-button').textContent = isReady ? "Unready" : "Ready";
     });
@@ -111,33 +119,96 @@ async function createRoom() {
         players: { [playerId]: { name: getName(), ready: false } },
         ...(quiz && { quiz })
     });
-    document.getElementById('room-code').textContent = currentCode; 
+    document.getElementById('room-code').textContent = currentCode;
     updatePlayerList(currentCode);
     showLobby();
 }
 
-async function startQuiz() {
-    const button = document.getElementById('start-quiz-button');
-    button.disabled = true;
+async function restoreRoom() {
+    const params = new URLSearchParams(window.location.search);
+    const roomCode = params.get("roomCode");
+
+    if (!roomCode) return;
+
     try {
-        const ref = doc(db, "rooms", currentCode);
-        const snap = await getDoc(ref);
-        if (!snap.exists()) return;
+        const snap = await getDoc(doc(db, "rooms", roomCode));
+
+        if (!snap.exists()) {
+            alert("Room no longer exists.");
+            return;
+        }
 
         const data = snap.data();
-        if (data.hostId !== playerId) {
-            button.disabled = false;
-            return alert("Only the host can start the quiz.");
+
+        if (!data.players?.[playerId]) {
+            alert("You are not a member of this room.");
+            return;
         }
 
-        const allReady = Object.values(data.players || {}).every(p => p.ready);
-        if (!allReady) {
-            button.disabled = false;
-            return alert("All players must be ready to start the quiz.");
-        }
-        await updateDoc(ref, { started: true });
+        currentCode = roomCode;
+
+        sessionStorage.setItem("currentRoomCode", currentCode);
+
+        document.getElementById('room-code').textContent = currentCode;
+
+        updatePlayerList(currentCode);
+        showLobby();
+
+    } catch (error) {
+        console.error("Could not restore room:", error);
+    }
+}
+
+async function startQuiz() {
+    if (!currentCode) return;
+
+    const button = document.getElementById('start-quiz-button');
+    button.disabled = true;
+
+    try {
+        const ref = doc(db, "rooms", currentCode);
+
+        await runTransaction(db, async (transaction) => {
+            const snap = await transaction.get(ref);
+
+            if (!snap.exists()) {
+                throw new Error("Room no longer exists.");
+            }
+
+            const data = snap.data();
+
+            if (data.hostId !== playerId) {
+                throw new Error("Only the host can start the quiz.");
+            }
+
+            if (data.started) return;
+
+            const allReady = Object.values(data.players || {})
+                .every(p => p.ready);
+
+            if (!allReady) {
+                throw new Error("All players must be ready.");
+            }
+
+            if (!data.quiz?.questions?.length) {
+                throw new Error("Generate a quiz first.");
+            }
+
+            const updates = {
+                started: true
+            };
+
+            for (const id of Object.keys(data.players || {})) {
+                updates[`players.${id}.score`] = 0;
+                updates[`players.${id}.finished`] = false;
+            }
+
+            transaction.update(ref, updates);
+        });
+
     } catch (err) {
         console.error("Failed to start quiz", err);
+        alert(err.message);
         button.disabled = false;
     }
 }
@@ -246,9 +317,15 @@ document.getElementById("gen-quiz-button").addEventListener("click", async () =>
         }
 
         sessionStorage.setItem("currentRoomCode", currentCode);
-        window.location.href =`/gen-settings.html?roomCode=${encodeURIComponent(currentCode)}`;
+        window.location.href = `/gen-settings.html?roomCode=${encodeURIComponent(currentCode)}`;
     } catch (error) {
         console.error(error);
         alert("Could not check room ownership.");
+    }
+});
+
+onAuthReady((user) => {
+    if (user) {
+        restoreRoom();
     }
 });

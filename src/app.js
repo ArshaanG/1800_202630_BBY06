@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
 import "/dark-mode.css";
+import { onAuthReady } from "/src/authentication.js";
 //--------------------------------------------------------------
 // If you have custom global styles, import them as well:
 //--------------------------------------------------------------
@@ -9,7 +10,15 @@ import "/src/styles/style.css";
 //--------------------------------------------------------------
 // Custom global JS code (shared with all pages)can go here.
 //--------------------------------------------------------------
-
+const publicPaths = new Set(["/", "/index.html", "/login.html"]);
+if (!publicPaths.has(window.location.pathname)) {
+  onAuthReady((user) => {
+    if (!user) {
+      window.location.replace("/index.html");
+      return;
+    }
+  });
+}
 // This is an example function. Replace it with your own logic.
 function sayHello() {
   // TODO: implement your logic here

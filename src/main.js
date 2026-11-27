@@ -23,14 +23,6 @@ function showName() {
 }
 // document.addEventListener('DOMContentLoaded', sayHello);
 showName()
-function applyDarkMode() {
-    const enabled = localStorage.getItem("darkMode") === "true";
-
-    document.body.classList.toggle("dark-mode", enabled);
-}
-
-applyDarkMode();
-
 
 // list the user's saved quizzes
 onAuthReady(async (user) => {

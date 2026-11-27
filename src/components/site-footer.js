@@ -9,7 +9,7 @@ footer.innerHTML = `
     <div class="container-fluid justify-content-around">
 
         <a class="nav-link text-center text-white"
-           href="index.html">
+           href="main.html">
             <i class="bi bi-house d-block fs-5"></i>
             <small>Home</small>
         </a>

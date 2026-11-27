@@ -4,15 +4,15 @@ import "/dark-mode.css";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { onAuthReady } from "/src/authentication.js";
 import { db, auth } from "./firebaseConfig.js";
-import { doc, getDoc, updateDoc, setDoc, increment, onSnapshot } from "firebase/firestore";
+import { doc, getDoc, updateDoc, setDoc, increment, onSnapshot, addDoc, collection, limit, orderBy, query, serverTimestamp } from "firebase/firestore";
 
-function localName() {
-  return new Promise((resolve) => {
-    onAuthReady(function (user) {
-      resolve(user.displayName || user.email);
-    });
-  });
-}
+// function localName() {
+//   return new Promise((resolve) => {
+//     onAuthReady(function (user) {
+//       resolve(user.displayName || user.email);
+//     });
+//   });
+// }
 
 function addMessage(username, content) {
   const message = document.createElement("div");
@@ -32,14 +32,54 @@ function addMessage(username, content) {
   messages.append(message);
   messages.scrollTop = messages.scrollHeight;
 }
-document.getElementById("chatForm").addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const content = document.getElementById("chatInput").value.trim();
-  if (!content) return;
-  addMessage(await localName(), content)
-  document.getElementById("chatInput").value = "";
-});
+function startChat(senderName) {
+  const form = document.getElementById("chatForm");
+  const input = document.getElementById("chatInput");
+  const messages = document.getElementById("chatMessages");
+  const messagesRef = collection(db, "rooms", quizRoomCode, "messages");
 
+  const recentMessages = query(
+    messagesRef,
+    orderBy("createdAt", "desc"),
+    limit(50)
+  );
+
+  const unsubscribe = onSnapshot(recentMessages, (snapshot) => {
+    messages.replaceChildren();
+
+    for (const messageDoc of [...snapshot.docs].reverse()) {
+      const { senderName, content } = messageDoc.data();
+      addMessage(senderName, content);
+    }
+  }, (error) => {
+    console.error("Could not load chat messages:", error);
+  });
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const content = input.value.trim();
+    if (!content || input.disabled) return;
+
+    input.disabled = true;
+
+    try {
+      await addDoc(messagesRef, {
+        senderName,
+        content,
+        createdAt: serverTimestamp()
+      });
+      input.value = "";
+    } catch (error) {
+      console.error("Could not send chat message:", error);
+      window.alert("Couldn't send your message. Try again.");
+    } finally {
+      input.disabled = false;
+      input.focus();
+    }
+  });
+
+  window.addEventListener("beforeunload", unsubscribe, { once: true });
+}
 // currently fake quiz data; to be replaced by database. 
 //const quizData = {
 // questions: [
@@ -520,6 +560,7 @@ async function loadRoomQuiz() {
     quizData = snapshot.data().quiz;
     startQuiz();
     subscribeToRaceTrack();
+    startChat(snapshot.data().players?.[playerId]?.name || "Guest");
   } catch (error) {
     console.error(error);
     questionProgress.textContent = "";

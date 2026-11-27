@@ -7,6 +7,10 @@ import { doc, updateDoc, addDoc, collection, serverTimestamp } from "firebase/fi
 
 const params = new URLSearchParams(window.location.search);
 const roomCode = params.get("roomCode");
+if (roomCode) {
+    document.getElementById("backToLobby").href =
+        `/rooms.html?roomCode=${encodeURIComponent(roomCode)}`;
+}
 
 const difficulty = document.getElementById("size");
 const courseName = document.getElementById("courseName");
@@ -119,7 +123,8 @@ generateButton.addEventListener("click", async () => {
         } catch (saveError) {
             console.error("Couldn't save quiz", saveError);
         }
-
+        pdfStatus.textContent = "Quiz generated successfully.";
+        window.alert("Quiz generated! Returning to the lobby.");
         window.location.href =
             `/rooms.html?roomCode=${encodeURIComponent(roomCode)}`;
     } catch (error) {

@@ -71,8 +71,10 @@ function updatePlayerList(code) {
         document.getElementById("gen-quiz-button").hidden =
             data.hostId !== playerId;
         const allReady = Object.values(data.players || {}).every(p => p.ready);
+        const quizReady = Boolean(data.quiz?.questions?.length);
 
-        const quizReady = !!data.quiz?.questions?.length;
+        document.getElementById("gen-quiz-button").hidden =
+            data.hostId !== playerId || quizReady;
 
         document.getElementById('start-quiz-button').disabled =
             playerId !== data.hostId || !allReady || !quizReady;
@@ -97,7 +99,8 @@ function updatePlayerList(code) {
                 list.appendChild(li);
             });
         isReady = !!data.players?.[playerId]?.ready;
-        document.getElementById('ready-button').textContent = isReady ? "Unready" : "Ready";
+        document.getElementById("ready-button").textContent =
+            isReady ? "Mark as Not Ready" : "Ready";
     });
 }
 

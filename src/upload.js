@@ -270,10 +270,10 @@ goToQuizButton.addEventListener("click", () => {
 
 // });
 
-function applyDarkMode() {
-    const enabled = localStorage.getItem("darkMode") === "true";
+// function applyDarkMode() {
+//     const enabled = localStorage.getItem("darkMode") === "true";
 
-    document.body.classList.toggle("dark-mode", enabled);
-}
+//     document.body.classList.toggle("dark-mode", enabled);
+// }
 
-applyDarkMode();
+// applyDarkMode();

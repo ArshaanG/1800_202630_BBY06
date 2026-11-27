@@ -34,14 +34,14 @@ if (darkModeToggle) {
 }
 
 // Apply saved dark mode
-function applyDarkMode() {
-    const enabled = localStorage.getItem("darkMode") === "true";
+// function applyDarkMode() {
+//     const enabled = localStorage.getItem("darkMode") === "true";
 
-    document.body.classList.toggle("dark-mode", enabled);
-}
+//     document.body.classList.toggle("dark-mode", enabled);
+// }
 
-// Apply when page loads
-applyDarkMode();
+// // Apply when page loads
+// applyDarkMode();
 
 // Save notification preference
 if (notificationsToggle) {
